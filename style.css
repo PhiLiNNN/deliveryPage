@@ -5,13 +5,28 @@
     --primary-cards-border-radius: 32px;
     --primary-cards-height: 650px;
     --primary-btn-bg-color: #223;
+    --primary-btn-hover-color: #2e2e44;
+    --fz-primary: 'Roboto';
+    --shopping-card-border: 2px solid #030911;
+    --shopping-card-box-shadow: 3px 5px 11px -1px #04101B;
+    
 }
+
 
 * {
     padding: 0px;
     margin:0px;
     box-sizing: border-box;
+    font-family: 'Roboto';
 }
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('./webfonts/roboto/Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    }
+
 
 ::-webkit-scrollbar {
   width: 20px;
@@ -29,7 +44,7 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: rgb(53, 53, 80);
+  background-color: #353550;
 }
 
 
@@ -46,7 +61,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 999;
+    z-index: 10;
 }
 
 nav img {
@@ -214,7 +229,9 @@ input:checked + label .description {
     margin-bottom: 48px;
 }
 
-.add {
+.add,
+.add-amount {
+    font-size: 24px;
     background: var(--primary-btn-bg-color);
     color: var(--primary-color);
     border-radius: 50%;
@@ -227,6 +244,28 @@ input:checked + label .description {
     border: 0;
 }
 
+
+
+
+.add:hover,
+.add-amount:hover,
+.pay-btn-container button:hover {
+    background-color: var(--primary-btn-hover-color);
+}
+
+.clicked {
+    border: 2px solid #030911;
+}
+
+
+
+
+.add-amount {
+    width: 40px;
+    height: 40px;
+}
+
+
 .description-flexrow {
     display: flex;
     justify-content: space-between;
@@ -235,49 +274,66 @@ input:checked + label .description {
 
 
 
+.grid {
+    display: flex;
+    background-color: blue;
+    height: 100vh;
+}
 
 
 
+.sticky {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    background-color: red;
+    top: 20vh;
+    height: 100vh;
+}
 
-
-
-
-
-
-
-
-
-
-
-
+.wrapper {
+    width: clamp(320px, 100%, 1980px);
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 34px;
+}
 
 
 .shopping-card-container {
-    position: absolute;
-    top: 30vh;
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 11.7vh;
     height: 500px;
     max-height: 500px;
     overflow: auto;
-    right: 24px;
-    width: 450px;
+    width: 500px;
     border: var(--primary-border);
     border-radius: 24px;
-    z-index: 999;
+    z-index: 997;
     background-color: #2f2f2fc9;
 }
 
 .shopping-card {
-    width: 100%;
+    position: flex;
+    top: 0;
+    width: 95%;
+    height: 95%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     padding: 32px;
     color: var(--primary-color);
+    border: var(--shopping-card-border);
+    box-shadow: var(--shopping-card-box-shadow);
+    border-radius: 12px;
+    z-index: 998;
     
 }
 
-.shopping-card  h1 {
+.shopping-card h1 {
     font-size: 40px;
     font-weight: 500;
 
@@ -303,11 +359,13 @@ input:checked + label .description {
 .shopping-card-flex {
     display: flex;
     justify-content: center;
+    background-color: #0309116c;
     align-items: center;
     gap: 12px;
     padding: 8px 16px;
     border-radius: 50px;
-    box-shadow: 3px 5px 11px -1px rgba(156, 156, 156, 0.4);
+    border: var(--shopping-card-border);
+    box-shadow: var(--shopping-card-box-shadow);
 }
 
 .order-container {
@@ -354,7 +412,7 @@ input:checked + label .description {
 .pay-btn-container button {
     font-size: 24px;
     color: var(--primary-color);
-    width: 280px;
+    width: 270px;
     height: 50px;
     border-radius: 20px;
     cursor: pointer;
@@ -364,4 +422,15 @@ input:checked + label .description {
 
 .d-none {
     display: none;
+}
+
+.shopping-card-info h2{
+    font-weight: 300;
+    text-align: center;
+}
+
+.shopping-card-info p {
+    margin-top: 16px;
+    text-align: center;
+    text-wrap: balance;
 }

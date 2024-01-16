@@ -1,122 +1,39 @@
 let menus = ['Pizza Giardino Esotico', 'Pizza Foresta Mistica','Pizza Seduzione Tropicale','Pizza Fusione Ardente','Pizza Sogno Orientale','Pizza L\'armonia dell\'Himalaya'];
-let amounts = [0, 0, 0, 0, 0, 0];
+let orderAmount = [];
 let data = {
-            'shortName': ['giardino', 'foresta','tropicale','ardente','sogno','himalaya'],
-            'topping': ['Rucola, frische Erdbeeren, Ziegenkäse, Pinienkerne',
-                        'Waldpilze (wie Shiitake, Pfifferlinge), Trüffelöl, Mozzarella',
-                        'Hähnchen, Ananas, Mango, Kokosraspeln',
-                        'Chorizo, Jalapeños, Paprika, Manchego-Käse',
-                        'Gegrilltes Lamm, Auberginen, Feta, Minze',
-                        'Curry-Hühnchen, Kichererbsen, Spinat, Joghurtsauce'],
-            'sauce': ['Balsamico-Glasur', 'Schwarze Knoblauchcreme', 'Schwarze Knoblauchcreme', 'Chipotle-Tomatensauce','Tahini-Joghurt', 'Mango-Chutney'],
-            'description': ['Der Kontrast zwischen süßen Erdbeeren, würzigem Ziegenkäse und knusprigem Rucola verleiht dieser Pizza eine einzigartige Note',
-                            'Diese Pizza bietet eine mysteriöse Mischung aus erdigen Aromen und dem Hauch von Trüffelöl.',
-                            'Diese Pizza bietet eine mysteriöse Mischung aus erdigen Aromen und dem Hauch von Trüffelöl.',
-                            'Für diejenigen, die es gerne etwas würziger mögen, bietet diese Pizza eine perfekte Mischung aus Schärfe und Aroma.',
-                            'Diese Pizza bringt den Geschmack des Nahen Ostens mit zartem Lamm und erfrischenden Minznoten auf den Tisch.',
-                            'Eine harmonische Fusion von würzigem Curry-Hühnchen, cremigen Kichererbsen, frischem Spinat und einer verführerischen Joghurtsauce. Eine köstliche Reise in die Aromen des Himalaya, die Ihren Gaumen verzaubert.'],
-            'price': ['7,50','7,50', '7,50', '7,50', '7,50', '7,50']
+    'shortName': ['giardino', 'foresta','tropicale','ardente','sogno','himalaya'],
+    'topping': ['Rucola, frische Erdbeeren, Ziegenkäse, Pinienkerne',
+                'Waldpilze (wie Shiitake, Pfifferlinge), Trüffelöl, Mozzarella',
+                'Hähnchen, Ananas, Mango, Kokosraspeln',
+                'Chorizo, Jalapeños, Paprika, Manchego-Käse',
+                'Gegrilltes Lamm, Auberginen, Feta, Minze',
+                'Curry-Hühnchen, Kichererbsen, Spinat, Joghurtsauce'],
+    'sauce': ['Balsamico-Glasur', 'Schwarze Knoblauchcreme', 'Schwarze Knoblauchcreme', 'Chipotle-Tomatensauce','Tahini-Joghurt', 'Mango-Chutney'],
+    'description': ['Der Kontrast zwischen süßen Erdbeeren, würzigem Ziegenkäse und knusprigem Rucola verleiht dieser Pizza eine einzigartige Note',
+                    'Diese Pizza bietet eine mysteriöse Mischung aus erdigen Aromen und dem Hauch von Trüffelöl.',
+                    'Diese Pizza bietet eine mysteriöse Mischung aus erdigen Aromen und dem Hauch von Trüffelöl.',
+                    'Für diejenigen, die es gerne etwas würziger mögen, bietet diese Pizza eine perfekte Mischung aus Schärfe und Aroma.',
+                    'Diese Pizza bringt den Geschmack des Nahen Ostens mit zartem Lamm und erfrischenden Minznoten auf den Tisch.',
+                    'Eine harmonische Fusion von würzigem Curry-Hühnchen, cremigen Kichererbsen, frischem Spinat und einer verführerischen Joghurtsauce. Eine köstliche Reise in die Aromen des Himalaya, die Ihren Gaumen verzaubert.'],
+    'price': ['7,50','8,00', '10,50', '7,50', '5,50', '7,50'],
+    'priceFloat': [7.50, 8.00, 10.50, 7.50, 5.50, 7.50]
 }
-
 
 
 function init() {
+    generateOrderAmountList(),
     createPizzaCards();
-    createDishesInfo();
-
+    createDishesInfo(); 
 }
 
-
-function addPizza(name) {
-    let addToBasket = document.getElementById('order-container-id');
-    let getIndex = data.shortName.indexOf(name);
-    if (getIndex == -1) {return 1;}
-    let pizzaId = `pizza${getIndex}`;
-    let existingPizza = addToBasket.querySelector(`#${pizzaId}`);
-    if (existingPizza) {return;}
-    let pizzaName = menus[getIndex];
-    let amount = 1;
-    addToBasket.innerHTML += templateGenerateShoppingCard(pizzaName, getIndex, amount);
-    hideDishesInfo();
-    showePayInfo();
-    createPayInfo();
+function generateOrderAmountList() { for (let i = 0; i < data.shortName.length; i++) { orderAmount.push(0); } 
 }
 
-function createDishesInfo() {
-    let addDishesInfo = document.getElementById('order-container-id');
-    addDishesInfo.innerHTML = templateDishesInfo();
-}
-
-function hideDishesInfo() {
-    let addDishesInfo = document.getElementById('add-dishes-info');
-    addDishesInfo.classList.add('d-none');
-}
-
-function createPayInfo() {
-    let payInfoCon = document.getElementById('pay-info-container-id');
-    payInfoCon.innerHTML = templatePayInfo();
-}
-
-function showePayInfo() {
-    let payInfoClass = document.getElementById('pay-info-container-id');
-    payInfoClass.classList.remove('d-none');
-}
-
-
-function templatePayInfo() {
-    return /*html*/`
-        <div id="pay-info" class="pay-btn-container">
-            <button>Bezahlen (700,88 €)</button>
-        </div>
-    `;
-}
-
-function changeQuantity(increment, idx) {
-    let quantityElement = document.getElementById(`quantity${idx}`);
-    let quantity = +quantityElement.innerText + increment;
-    if (quantity < 1) {
-        let deleteOrder = document.getElementById(`pizza${idx}`);
-        deleteOrder.parentNode.removeChild(deleteOrder);
-    }
-    console.log(Math.max(1, quantity));
-    quantity = Math.max(1, quantity); 
-    quantityElement.innerText = quantity;
-}
-
-
-function templateGenerateShoppingCard(name, idx, amount) {
-    return /*html*/`
-        <div id="pizza${idx}" class="order-style">
-            <div class="order-name">
-                <p>${name}</p>
-            </div>
-            <div class="order-btn">
-                <button class="add" onclick="changeQuantity(-1, '${idx}')">-</button>
-                <p id="quantity${idx}"> ${amount} </p>
-                <button class="add" onclick="changeQuantity(1, '${idx}')">+</button>
-            </div>
-        </div>
-   
-    `;
-}
-
-
-function templateDishesInfo() {
-    return /*html*/`
-        <div id="add-dishes-info">
-            <p>Fülle deinen Warenkorb</p>
-        </div>
-    `;
-}
-
-
-
-        
+// -----creates---------------
 
 function createPizzaCards() {
     let pizzaCard = document.getElementById('cards-container-id');
     pizzaCard.innerHTML = '';
-    
     menus.forEach((menu, idx) => {
         pizzaCard.innerHTML += templatePizzaCard(
             idx, menu, 
@@ -130,11 +47,177 @@ function createPizzaCards() {
 }
 
 
+function createDishesInfo() {
+    let addDishesInfo = document.getElementById('order-container-id');
+    addDishesInfo.innerHTML = templateDishesInfo();
+}
+
+
+function createPayInfo() {
+    let price = calPayment();
+    let payInfoCon = document.getElementById('pay-info-container-id');
+    payInfoCon.innerHTML = templatePayInfo(price);
+}
+
+
+function toggleVisibility(elementId, show = true) {
+    let element = document.getElementById(elementId);
+    show ? element.classList.remove('d-none') : element.classList.add('d-none');
+}
+
+// -----logic---------------
+
+function add(pizzaName, index, addToBasket) {
+    let pizzaId = `pizza${index}`;
+    let existingPizza = isPizzaInBasket(addToBasket, pizzaId);
+
+    if (!existingPizza) {
+        let amount = 1;
+        addToBasket.innerHTML += templateGenerateShoppingCard(pizzaName, index, amount);
+        orderAmount[index] = 1;
+        toggleVisibility('add-dishes-info', false);
+        toggleVisibility('pay-info-container-id', true);
+        createPayInfo();
+    }
+    else {
+        changeQuantity(1, index)
+    }
+}
+
+
+function getPizzaIndex(index) { return  data.shortName.indexOf(index); }
+
+
+function isPizzaInBasket(addToBasket, pizzaId) { return addToBasket.querySelector(`#${pizzaId}`); }
+
+
+function addPizza(name) {
+    let pizzaIndex = getPizzaIndex(name)
+    let addToBasket = document.getElementById('order-container-id');
+    toggleCardBorderFeedback(`card${pizzaIndex}`);
+    if (pizzaIndex == -1) {return 1;}
+    add(menus[pizzaIndex], pizzaIndex, addToBasket);
+}
+
+function toggleCardBorderFeedback(activeCard) { 
+    toggleCardBorderColor(activeCard, true)
+    setTimeout(() => { 
+        toggleCardBorderColor(activeCard, false)
+     }, 500);
+}
+
+
+function calPayment() {
+    let result = 0;
+    orderAmount.forEach((amount, idx) => {
+        result += +data.priceFloat[idx] * amount;
+    });
+    return result.toFixed(2).replace('.', ',');
+}
+
+
+function changeQuantity(increment, idx) {
+    let quantityElement = document.getElementById(`quantity${idx}`);
+    let quantity = +quantityElement.innerText + increment;
+    if (quantity < 1) { removeOrder(idx); } 
+    else { updateQuantity(idx, quantity); }
+}
+
+function removeOrder(idx) {
+    let deleteOrder = document.getElementById(`pizza${idx}`);
+    deleteOrder.parentNode.removeChild(deleteOrder);
+    orderAmount[idx] = 0;
+    countOrders(); 
+    createPayInfo(); 
+    if (orderAmount.every(amount => amount === 0)) { toggleVisibility('add-dishes-info', true); }
+}
+
+function updateQuantity(idx, quantity) {
+    orderAmount[idx] = quantity;
+    document.getElementById(`quantity${idx}`).innerText = quantity;
+    createPayInfo();
+}
+
+
+function countOrders() {
+    let parentElement = document.getElementById('order-container-id');
+    let childs = parentElement.childElementCount;
+    if (childs == 1) { toggleVisibility('pay-info-container-id', false); }
+}
+
+
+
+function toggleCardBorderColor(activeCard, show = true) { 
+    if (show) { document.getElementById(activeCard).classList.add('clicked'); }
+    else { document.getElementById(activeCard).classList.remove('clicked'); }
+}
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// -----templates---------------
+
+function templatePayInfo(price) {
+    return /*html*/`
+        <div id="pay-info" class="pay-btn-container">
+            <button>Bezahlen (${price} €)</button>
+        </div>
+    `;
+}
+
+
+function templateGenerateShoppingCard(name, idx, amount) {
+    return /*html*/`
+        <div id="pizza${idx}" class="order-style">
+            <div class="order-name">
+                <p>${name}</p>
+            </div>
+            <div class="order-btn">
+                <button class="add-amount" onclick="changeQuantity(-1, '${idx}')">-</button>
+                <p id="quantity${idx}"> ${amount} </p>
+                <button class="add-amount" onclick="changeQuantity(1, '${idx}')">+</button>
+            </div>
+        </div>
+   
+    `;
+}
+
+
+function templateDishesInfo() {
+    return /*html*/`
+        <div id="add-dishes-info" class="shopping-card-info">
+            <h2>Fülle deinen Warenkorb</h2>
+            <p>Brich mit dem Gewöhnlichen! Wähle deine<br>Lieblingspizza aus, füge sie dem Warenkorb hinzu und bestelle dein Essen.</p>
+        </div>
+    `;
+}
+
+
+
 function templatePizzaCard(idx, name, shortName, topping, sauce, description, price) {
     return /*html*/`
         <input type="radio" name="slide" id="c${idx}" checked>
-        <label for="c${idx}" class="card">
-            <div class="row">
+        <label id="card${idx}" for="c${idx}" class="card">
+            <div  class="row">
                 <div class="row-coloum">
                     <div class="icon">${idx}</div>
                     <h4>${name}</h4>
