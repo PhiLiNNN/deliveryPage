@@ -33,7 +33,7 @@
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #2f2f2fc9;
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -89,6 +89,7 @@ nav ul li a {
     background-position: 50% 40%;
     background-attachment: fixed;
     background-size: cover;
+
    
 }
 
@@ -106,8 +107,9 @@ nav ul li a {
     height: 74vh;
     background-size: auto 100%;
     background-position: 50% 15%;
-}
+    z-index: 999;
 
+}
 
 .filter-container {
     position: absolute;
@@ -116,12 +118,26 @@ nav ul li a {
     height: 300vh;
     background-color: var(--primary-cards-bg);
     z-index: 1;
+}  
+
+.container {
+   display: flex;
+   justify-content: center;
 }
 
-
-section {
-    max-width: 1980px;
+.wrapper {
+    width: clamp(320px, 100%, 1980px);
 }
+
+.grid {
+    display: flex;
+    justify-content: center;
+}
+
+.grid main {
+    width: 60%;
+}
+
 
 .cards-container {
     display: flex;
@@ -274,29 +290,8 @@ input:checked + label .description {
 
 
 
-.grid {
-    display: flex;
-    background-color: blue;
-    height: 100vh;
-}
 
 
-
-.sticky {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    background-color: red;
-    top: 20vh;
-    height: 100vh;
-}
-
-.wrapper {
-    width: clamp(320px, 100%, 1980px);
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 34px;
-}
 
 
 .shopping-card-container {
@@ -305,13 +300,12 @@ input:checked + label .description {
     justify-content: center;
     align-items: center;
     top: 11.7vh;
-    height: 500px;
     max-height: 500px;
-    overflow: auto;
-    width: 500px;
+    width: 30%;
     border: var(--primary-border);
     border-radius: 24px;
-    z-index: 997;
+    margin-top: 64px;
+    overflow: hidden;
     background-color: #2f2f2fc9;
 }
 
@@ -319,7 +313,8 @@ input:checked + label .description {
     position: flex;
     top: 0;
     width: 95%;
-    height: 95%;
+    max-height: 480px;
+    margin-top: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -329,7 +324,8 @@ input:checked + label .description {
     border: var(--shopping-card-border);
     box-shadow: var(--shopping-card-box-shadow);
     border-radius: 12px;
-    z-index: 998;
+    overflow: auto;
+  
     
 }
 
@@ -343,9 +339,17 @@ input:checked + label .description {
     width: 100%;
     margin-top: 24px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     gap: 8px;
 
+}
+
+.delivery-case-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 
 .delivery-case-content {
@@ -366,6 +370,7 @@ input:checked + label .description {
     border-radius: 50px;
     border: var(--shopping-card-border);
     box-shadow: var(--shopping-card-box-shadow);
+   
 }
 
 .order-container {
