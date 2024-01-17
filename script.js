@@ -22,7 +22,8 @@ let data = {
 
 function init() {
     generateOrderAmountList(),
-    createPizzaCards();
+    createPizzaCards('cards-container1-id');
+    createPizzaCardsDummy('cards-container2-id');
     createDishesInfo(); 
 }
 
@@ -31,11 +32,11 @@ function generateOrderAmountList() { for (let i = 0; i < data.shortName.length; 
 
 // -----creates---------------
 
-function createPizzaCards() {
-    let pizzaCard = document.getElementById('cards-container-id');
-    pizzaCard.innerHTML = '';
+function createPizzaCards(box1) {
+    let pizzaCardBox1 = document.getElementById(box1);
+    pizzaCardBox1.innerHTML = '';
     menus.forEach((menu, idx) => {
-        pizzaCard.innerHTML += templatePizzaCard(
+        pizzaCardBox1.innerHTML += templatePizzaCard(
             idx, menu, 
             data.shortName[idx], 
             data.topping[idx],
@@ -45,7 +46,20 @@ function createPizzaCards() {
         );
     });
 }
-
+function createPizzaCardsDummy(box1) {
+    let pizzaCardBox1 = document.getElementById(box1);
+    pizzaCardBox1.innerHTML = '';
+    menus.forEach((menu, idx) => {
+        pizzaCardBox1.innerHTML += templatePizzaCardDummy(
+            idx, menu, 
+            data.shortName[idx], 
+            data.topping[idx],
+            data.sauce[idx],
+            data.description[idx],
+            data.price[idx]
+        );
+    });
+}
 
 function createDishesInfo() {
     let addDishesInfo = document.getElementById('order-container-id');
@@ -223,7 +237,7 @@ function templatePizzaCard(idx, name, shortName, topping, sauce, description, pr
                     <h4>${name}</h4>
                 </div>
                 <div class="description">
-                    <img src="./img/${shortName}.png" alt="">
+                 
                     <div class="description-flexrow">
                         <div >
                             <p>Belag: ${topping}</p>
@@ -242,7 +256,30 @@ function templatePizzaCard(idx, name, shortName, topping, sauce, description, pr
 }
 
 
-
-
-
-
+function templatePizzaCardDummy(idx, name, shortName, topping, sauce, description, price) {
+    return /*html*/`
+        <input type="radio" name="slide" id="c1${idx}" checked>
+        <label id="card1${idx}" for="c1${idx}" class="card">
+            <div  class="row">
+                <div class="row-coloum">
+                    <div class="icon">1${idx}</div>
+                    <h4>${name}</h4>
+                </div>
+                <div class="description">
+                    <img src="./img/${shortName}.png" alt="">
+                    <div class="description-flexrow">
+                        <div >
+                            <p>Belag: ${topping}</p>
+                            <p>Soße: ${sauce}</p>
+                            <p>${description}</p>
+                            <p>${price} €</p>
+                        </div>
+                        <div>
+                            <button class="add" onclick="addPizza('${shortName}')">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </label>
+    `;
+}

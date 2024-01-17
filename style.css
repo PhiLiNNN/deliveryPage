@@ -126,16 +126,21 @@ nav ul li a {
 }
 
 .wrapper {
-    width: clamp(320px, 100%, 1980px);
+    width: clamp(320px, 100%, 1920px);
 }
 
 .grid {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
 }
 
 .grid main {
-    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    margin-left: 8px;
 }
 
 
@@ -143,14 +148,21 @@ nav ul li a {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-top: 64px;
+    margin-block: 64px;
     gap: 16px;
     
+}
+
+.flex  {
+    display: flex;
+
 }
 
 .card {
     width: 80px;
     padding-bottom: 8px;
+    background-size: cover;
+    background-position: 50% 100%;
     height: var(--primary-cards-height);
     border: var(--primary-border);
     border-radius: var(--primary-cards-border-radius);
@@ -163,11 +175,28 @@ nav ul li a {
 }
 
 
+@media (max-width: 1660px) {
+    .card {
+        width: clamp(320px, 100%, 1000px);
+        height: 80px;
+        margin-left: 64px;
+    }
+    .row-coloum h4 {
+       
+        writing-mode: horizontal-tb; 
+        text-orientation: normal;
+        text-transform: uppercase;
+    }
+}
+
+
 .card > .row  {
     height: 100%;
     color: white;
     display: flex;
 }
+
+
 
 .card > .row > .row-coloum {
     height: 100%;
@@ -203,7 +232,8 @@ nav ul li a {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    flex-direction: column;
+    align-items: center;
+
     overflow: hidden;
     height: 650px;
     width: 520px;
@@ -215,9 +245,10 @@ nav ul li a {
 }
 
 .description p {
-    color: #b0b0ba;
+    color: white;
     padding-top: 5px;
     text-wrap: balance;
+
 }
 
 
@@ -229,6 +260,39 @@ input {
 input:checked + label {
     width: 600px;
 }
+
+
+.card[for="c0"] {
+    background-image: url('./img/giardino.png');
+}
+.card[for="c1"] {
+    background-image: url('./img/foresta.png');
+}
+.card[for="c2"] {
+    background-image: url('./img/tropicale.png');
+}
+.card[for="c3"] {
+    background-image: url('./img/ardente.png');
+}
+.card[for="c4"] {
+    background-image: url('./img/sogno.png');
+}
+.card[for="c5"] {
+    background-image: url('./img/himalaya.png');
+}
+
+
+
+
+
+@media (max-width: 1660px) {
+    input:checked + label {
+        height: 650px;
+        width: clamp(320px, 100%, 1000px);
+
+    }
+}
+
 
 input:checked + label .description {
     position: relative;
@@ -300,11 +364,12 @@ input:checked + label .description {
     justify-content: center;
     align-items: center;
     top: 11.7vh;
+    margin: 64px 56px 0 16px ;
     max-height: 500px;
-    width: 30%;
+    width:  25%;
     border: var(--primary-border);
     border-radius: 24px;
-    margin-top: 64px;
+
     overflow: hidden;
     background-color: #2f2f2fc9;
 }
@@ -313,20 +378,19 @@ input:checked + label .description {
     position: flex;
     top: 0;
     width: 95%;
-    max-height: 480px;
+    height: 420px;
+    max-height: 420px;
     margin-top: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: start;
-    padding: 32px;
+    padding: 32px 8px;
     color: var(--primary-color);
     border: var(--shopping-card-border);
     box-shadow: var(--shopping-card-box-shadow);
     border-radius: 12px;
     overflow: auto;
-  
-    
 }
 
 .shopping-card h1 {
@@ -336,7 +400,8 @@ input:checked + label .description {
 }
 
 .shopping-card-content {
-    width: 100%;
+    width: 95%;
+  
     margin-top: 24px;
     display: flex;
     flex-direction: column;
@@ -346,6 +411,7 @@ input:checked + label .description {
 }
 
 .delivery-case-flex {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -361,11 +427,11 @@ input:checked + label .description {
 }
 
 .shopping-card-flex {
+    width: 100%;
     display: flex;
     justify-content: center;
     background-color: #0309116c;
     align-items: center;
-    gap: 12px;
     padding: 8px 16px;
     border-radius: 50px;
     border: var(--shopping-card-border);
@@ -417,7 +483,7 @@ input:checked + label .description {
 .pay-btn-container button {
     font-size: 24px;
     color: var(--primary-color);
-    width: 270px;
+    width: 80%;
     height: 50px;
     border-radius: 20px;
     cursor: pointer;
@@ -438,4 +504,11 @@ input:checked + label .description {
     margin-top: 16px;
     text-align: center;
     text-wrap: balance;
+}
+
+
+@media (max-width: 1660px) {
+    .shopping-card-container {
+       
+    }
 }
