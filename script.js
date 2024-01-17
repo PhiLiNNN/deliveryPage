@@ -225,7 +225,33 @@ function templateDishesInfo() {
     `;
 }
 
-
+function templatePizzaCardMobile(idx, name, shortName, topping, sauce, description, price) {
+    return /*html*/`
+        <input type="radio" name="slide" id="c${idx}" checked>
+        <label id="card${idx}" for="c${idx}" class="card">
+            <div  class="row">
+                <div class="row-coloum">
+                    <div class="icon">${idx}</div>
+                    <h4>${name}</h4>
+                </div>
+                <div class="description">
+                    <img src="./img/${shortName}.png" alt="">
+                    <div class="description-flexrow">
+                        <div class="description-flexrow-center">
+                            <p>Belag: ${topping}</p>
+                            <p>Soße: ${sauce}</p>
+                            <p>${description}</p>
+                            <p>${price} €</p>
+                        </div>
+                        <div>
+                            <button class="add" onclick="addPizza('${shortName}')">+</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </label>
+    `;
+}
 
 function templatePizzaCard(idx, name, shortName, topping, sauce, description, price) {
     return /*html*/`
@@ -237,15 +263,15 @@ function templatePizzaCard(idx, name, shortName, topping, sauce, description, pr
                     <h4>${name}</h4>
                 </div>
                 <div class="description">
-                 
+                    <img src="./img/${shortName}.png" alt="">
                     <div class="description-flexrow">
-                        <div >
+                        <div class="description-flexrow-center">
                             <p>Belag: ${topping}</p>
                             <p>Soße: ${sauce}</p>
                             <p>${description}</p>
                             <p>${price} €</p>
                         </div>
-                        <div>
+                        <div class="add-btn">
                             <button class="add" onclick="addPizza('${shortName}')">+</button>
                         </div>
                     </div>
@@ -268,13 +294,13 @@ function templatePizzaCardDummy(idx, name, shortName, topping, sauce, descriptio
                 <div class="description">
                     <img src="./img/${shortName}.png" alt="">
                     <div class="description-flexrow">
-                        <div >
+                        <div class="description-flexrow-center">
                             <p>Belag: ${topping}</p>
                             <p>Soße: ${sauce}</p>
                             <p>${description}</p>
                             <p>${price} €</p>
                         </div>
-                        <div>
+                        <div class="add-btn">
                             <button class="add" onclick="addPizza('${shortName}')">+</button>
                         </div>
                     </div>
