@@ -31,7 +31,7 @@
                         <div id="cards-container2-id" class="cards-container"></div>          
                     </main>
                  
-                    <div class="shopping-card-container media"> 
+                    <div id="shopping-card-container-id" class="shopping-card-container"> 
                         <div class="shopping-card">
                             <h1>Warenkorb</h1>
                             <div class="shopping-card-content">
@@ -56,9 +56,21 @@
                             </div>
                         </div>
                     </div>
+                    <div id="mobile-popup-bg-id" class="mobile-popup-bg d-none"></div>
+                   
                 </div>
             </div>
         </div>
+ 
+        <div class="wrapper-btn">
+            <div id="show-open-btn-id" class="pay-info-mobile">
+                <button onclick="toggleMobileShoppingCard(true)">Warenkorb</button>
+            </div>
+            <div id="show-close-btn-id" class="pay-info-mobile d-none">
+                <button onclick="toggleMobileShoppingCard(false)">Warenkorb schließen</button>
+            </div>
+        </div>
+
     </section>
 </body>
 </html>

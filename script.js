@@ -167,8 +167,21 @@ function toggleCardBorderColor(activeCard, show = true) {
 }
     
 
-
-
+function toggleMobileShoppingCard(open) {
+    let openPopupBg = document.getElementById('mobile-popup-bg-id');
+    let closeButton = document.getElementById('show-close-btn-id');
+    let shoppingCard = document.getElementById('shopping-card-container-id');
+    if(open) {
+        closeButton.classList.remove('d-none');
+        openPopupBg.classList.remove('d-none');
+        shoppingCard.style.display = 'flex'
+    }
+    else {
+        closeButton.classList.add('d-none');
+        openPopupBg.classList.add('d-none');
+        shoppingCard.style.display = 'none'
+    }
+}
 
 
 
