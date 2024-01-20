@@ -398,8 +398,6 @@ input:checked + label .description {
     background-color: var(--primary-btn-bg-color)
 }
 
-
-
 .shopping-card-info h2{
     font-weight: 300;
     text-align: center;
@@ -411,7 +409,8 @@ input:checked + label .description {
     text-wrap: balance;
 }
 
-.pay-info-mobile {
+.pay-info-mobile,
+.pay-info-mobile-close {
     position: fixed;
     display: none;
     justify-content: center;
@@ -419,13 +418,15 @@ input:checked + label .description {
     z-index: 11;
     bottom: 0;
     padding-bottom: 24px;
-    align-items: center;
-    
-
-    
+    align-items: center;  
 }
 
-.pay-info-mobile button {
+.pay-info-mobile-close {
+    display: block;
+}
+
+.pay-info-mobile button,
+.pay-info-mobile-close button {
     color: var(--primary-color);
     width: clamp(320px, 98%, 1004px);
     font-size: 24px;
@@ -433,7 +434,38 @@ input:checked + label .description {
     background-color: var(--primary-btn-bg-color);
     border-radius: 32px;
     border: 0;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
 }
+
+.pay-info-mobile span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    margin: 0 170px 20px 0;
+    background-color: #262626;
+    height: 20px;
+    width: 20px;
+    border-radius: 16px;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+.pay-info-mobile button::before {
+    content: '';
+    background-image: url(./img/shopping_bags_trans_2.png);
+    background-position: 50% 40%;
+    background-size: cover;
+    width: 32px; 
+    height: 32px; 
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
+
+
 
 .wrapper-btn {
     width: 100%;
@@ -521,8 +553,8 @@ input:checked + label .description {
         text-wrap: balance;
     }
     .shopping-card-container {
-        margin-left: 16px;
-        margin-right: 56px;
+        margin-left: 48px;
+        margin-right: 48px;
     }
 }
 
@@ -543,6 +575,7 @@ input:checked + label .description {
         letter-spacing: 6px;
     }
 }
+
 
 @media (max-width: 1004px) {
     .shopping-card-container {
@@ -728,3 +761,4 @@ input:checked + label .description {
 .d-none {
     display: none;
 }
+

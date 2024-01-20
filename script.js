@@ -19,6 +19,8 @@ let data = {
     'priceFloat': [7.50, 8.00, 10.50, 7.50, 5.50, 7.50]
 }
 
+window.addEventListener('resize', handleResize);
+handleResize();
 
 function init() {
     generateOrderAmountList(),
@@ -27,10 +29,8 @@ function init() {
     createDishesInfo(); 
 }
 
-function generateOrderAmountList() { for (let i = 0; i < data.shortName.length; i++) { orderAmount.push(0); } 
-}
+function generateOrderAmountList() { for (let i = 0; i < data.shortName.length; i++) { orderAmount.push(0); } }
 
-// -----creates---------------
 
 function createPizzaCards(box1) {
     let pizzaCardBox1 = document.getElementById(box1);
@@ -111,6 +111,8 @@ function addPizza(name) {
     toggleCardBorderFeedback(`card${pizzaIndex}`);
     if (pizzaIndex == -1) {return 1;}
     add(menus[pizzaIndex], pizzaIndex, addToBasket);
+    updateOrderIconCounter();
+    // showShoppingIcon();
 }
 
 function toggleCardBorderFeedback(activeCard) { 
@@ -166,6 +168,41 @@ function toggleCardBorderColor(activeCard, show = true) {
     else { document.getElementById(activeCard).classList.remove('clicked'); }
 }
     
+function orderSum() { return orderAmount.reduce(function (accumulator, currentNumber) { return accumulator + currentNumber; }, 0); }
+
+// function showShoppingIcon() {
+//     let payInfoMobile = document.getElementById("show-open-btn-id");
+//     let sum = orderSum();
+//     if (sum > 0) {
+//         payInfoMobile.classList.add("close");
+//     }  
+// }
+
+
+function handleResize() {
+    let viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    let openPopupBg = document.getElementById('mobile-popup-bg-id');
+    let closeButton = document.getElementById('show-close-btn-id');
+    let openButton = document.getElementById('show-open-btn-id');
+    let shoppingCard = document.getElementById('shopping-card-container-id');
+
+    if (viewportWidth > 1004) {
+        if ((closeButton && !closeButton.classList.contains('d-none')) || (openButton && !openButton.classList.contains('d-none'))) {
+            shoppingCard.style.display = 'flex';
+        }
+    } else {
+        if (shoppingCard) {
+            shoppingCard.style.display = 'none';
+        }
+        if (openPopupBg) {
+            openPopupBg.classList.add('d-none');
+        }
+        if (closeButton) {
+            closeButton.classList.add('d-none');
+        }
+    }
+}
+
 
 function toggleMobileShoppingCard(open) {
     let openPopupBg = document.getElementById('mobile-popup-bg-id');
@@ -174,34 +211,23 @@ function toggleMobileShoppingCard(open) {
     if(open) {
         closeButton.classList.remove('d-none');
         openPopupBg.classList.remove('d-none');
-        shoppingCard.style.display = 'flex'
+        shoppingCard.style.display = 'flex';
     }
     else {
         closeButton.classList.add('d-none');
         openPopupBg.classList.add('d-none');
         shoppingCard.style.display = 'none'
     }
+    updateOrderIconCounter();
 }
 
 
+function updateOrderIconCounter() {
+    let orders = document.getElementById('food-counter-id');
+    let sum = orderSum();
+    orders.innerText = sum;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// -----templates---------------
 
 function templatePayInfo(price) {
     return /*html*/`
