@@ -19,6 +19,13 @@ let data = {
     'priceFloat': [7.50, 8.00, 10.50, 7.50, 5.50, 7.50]
 }
 
+
+
+function openDropdown() {
+    const dropDownMenu = document.getElementById('droppdown-id');
+    dropDownMenu.classList.toggle('open');
+}
+
 window.addEventListener('resize', handleResize);
 handleResize();
 
@@ -170,14 +177,6 @@ function toggleCardBorderColor(activeCard, show = true) {
     
 function orderSum() { return orderAmount.reduce(function (accumulator, currentNumber) { return accumulator + currentNumber; }, 0); }
 
-// function showShoppingIcon() {
-//     let payInfoMobile = document.getElementById("show-open-btn-id");
-//     let sum = orderSum();
-//     if (sum > 0) {
-//         payInfoMobile.classList.add("close");
-//     }  
-// }
-
 
 function handleResize() {
     let viewportWidth = window.innerWidth || document.documentElement.clientWidth;
@@ -185,7 +184,6 @@ function handleResize() {
     let closeButton = document.getElementById('show-close-btn-id');
     let openButton = document.getElementById('show-open-btn-id');
     let shoppingCard = document.getElementById('shopping-card-container-id');
-
     if (viewportWidth > 1004) {
         if ((closeButton && !closeButton.classList.contains('d-none')) || (openButton && !openButton.classList.contains('d-none'))) {
             shoppingCard.style.display = 'flex';
@@ -194,27 +192,31 @@ function handleResize() {
         if (shoppingCard && openPopupBg && closeButton) {
             toggleMobileShoppingCard(false)
             updateOrderIconCounter();
+            
         }
     }
 }
-
 
 function toggleMobileShoppingCard(open) {
     let openPopupBg = document.getElementById('mobile-popup-bg-id');
     let closeButton = document.getElementById('show-close-btn-id');
     let shoppingCard = document.getElementById('shopping-card-container-id');
-    if(open) {
+    
+    if (open) {
         closeButton.classList.remove('d-none');
         openPopupBg.classList.remove('d-none');
         shoppingCard.style.display = 'flex';
-    }
-    else {
+        document.body.style.overflow = 'hidden';
+    } else {
         closeButton.classList.add('d-none');
         openPopupBg.classList.add('d-none');
-        shoppingCard.style.display = 'none'
+        shoppingCard.style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
+
     updateOrderIconCounter();
 }
+
 
 
 function updateOrderIconCounter() {
@@ -224,10 +226,35 @@ function updateOrderIconCounter() {
 }
 
 
+function clearShoppingCard() {
+    data.shortName.forEach((_, index) => {
+        if (orderAmount[index] !== 0) {
+            removeOrder(index);
+        }
+    });
+    openOrderFeedbackPopup();
+}
+
+function openOrderFeedbackPopup() {
+    let feedbackPopup = document.getElementById('order-popup-id');
+    feedbackPopup.classList.remove('d-none');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+            feedbackPopup.classList.add('d-none');
+            window.location.href = "index.html";
+        }, 3000);
+}
+
+
+
+
+
+
+
 function templatePayInfo(price) {
     return /*html*/`
         <div id="pay-info" class="pay-btn-container">
-            <button>Bezahlen (${price} €)</button>
+            <button onclick="clearShoppingCard()">Bezahlen (${price} €)</button>
         </div>
     `;
 }
@@ -275,7 +302,7 @@ function templatePizzaCardMobile(idx, name, shortName, topping, sauce, descripti
                             <p>Belag: ${topping}</p>
                             <p>Soße: ${sauce}</p>
                             <p>${description}</p>
-                            <p>${price} €</p>
+                            <p class="price-color">${price} €</p>
                         </div>
                         <div>
                             <button class="add" onclick="addPizza('${shortName}')">+</button>
@@ -303,7 +330,7 @@ function templatePizzaCard(idx, name, shortName, topping, sauce, description, pr
                             <p>Belag: ${topping}</p>
                             <p>Soße: ${sauce}</p>
                             <p>${description}</p>
-                            <p>${price} €</p>
+                            <p class="price-color">${price} €</p>
                         </div>
                         <div class="add-btn">
                             <button class="add" onclick="addPizza('${shortName}')">+</button>
@@ -332,7 +359,7 @@ function templatePizzaCardDummy(idx, name, shortName, topping, sauce, descriptio
                             <p>Belag: ${topping}</p>
                             <p>Soße: ${sauce}</p>
                             <p>${description}</p>
-                            <p>${price} €</p>
+                            <p class="price-color">${price} €</p>
                         </div>
                         <div class="add-btn">
                             <button class="add" onclick="addPizza('${shortName}')">+</button>

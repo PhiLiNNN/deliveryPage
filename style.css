@@ -6,10 +6,11 @@
     --primary-cards-border-radius: 32px;
     --primary-cards-height: 650px;
     --primary-btn-bg-color: #223;
-    --primary-btn-hover-color: #2e2e44;
+    --primary-btn-hover-color: #ac5240;
     --fz-primary: 'Roboto';
     --shopping-card-border: 2px solid #030911;
     --shopping-card-box-shadow: 3px 5px 11px -1px #04101B; 
+    --accent-color: #864133;
 }
 
 * {
@@ -21,6 +22,15 @@
     text-decoration: none;
 }
 
+body {
+    background-image: url(./img/background.png);
+    background-position: 50% 40%;
+    background-attachment: fixed;
+    background-size: cover;
+
+}
+
+
 @font-face {
     font-family: 'Roboto';
     src: url('./webfonts/roboto/Roboto-Regular.ttf') format('truetype');
@@ -30,10 +40,12 @@
 
 ::-webkit-scrollbar {
   width: 20px;
+ 
 }
 
 ::-webkit-scrollbar-track {
   background-color: #262626;
+
 }
 
 ::-webkit-scrollbar-thumb {
@@ -49,7 +61,7 @@
 }
 
 nav {
-    background-color: #050b1283;
+    background-color: var(--primary-cards-bg);
     width: 100%;
     position: fixed;
     top: 0;
@@ -61,12 +73,11 @@ nav {
 }
 
 nav img {
-    height: 11.7vh;
+    height: 100px;
     padding: 16px;
 }
 
 nav ul {
-    margin-right: 24px;
     display: flex;
     gap: 24px;
 }
@@ -76,23 +87,80 @@ nav ul li a {
     color: var(--primary-color);
 }
 
-.bg-setup {
-    background-image: url(./img/background.png);
-    background-position: 50% 40%;
-    background-attachment: fixed;
-    background-size: cover;
+.about-us-container  {
+    background-color: var(--accent-color);
+    border-radius: 20px;
+    padding: 10px 16px;
+    margin-right: 24px;
+    color: var(--primary-color);
 }
 
-.bg-top-height {
-    position: relative;
-    height: 11.7vh;
+
+.burger-menu {
+    display: none;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
 }
 
-.bg-height {
-    height: 300vh;
+.droppdown {
+    display: none;
+    position: fixed;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    height: 0;
+    right: 16px;
+    top: 100px;
+    width: 300px;
+    background: #262626b5;
+    backdrop-filter: blur(15px);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: height 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.droppdown.open {
+    height: 400px;
+}
+
+.droppdown li a {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    
+}
+
+.droppdown li a:hover {
+    color: var(--primary-btn-hover-color);
+ 
+}
+
+.droppdown li:last-child {
+    width: 100%;
+    border-radius: 20px;
+}
+.droppdown li:last-child a {
+    background-color: var(--accent-color);
+    border-radius: 20px;
+    padding: 10px 16px;
+    margin-right: 0;
+    margin: 0 8px 24px 8px;
+}
+
+.droppdown li:last-child a:hover {
+    color: var(--primary-color);
+    background-color: var(--primary-btn-hover-color);
 }
 
 .aot {
+    position: absolute;
+    top: 11.7vh;
+    left: 0;
+    right: 0;
     background-image: url(./img/landing_page.png);
     height: 74vh;
     object-fit: cover;
@@ -103,8 +171,7 @@ nav ul li a {
 .filter-container {
     position: absolute;
     top: 85.6vh;
-    width: 100%;
-    height: 300vh;
+    width: 100%;  
     background-color: var(--primary-cards-bg);
 }  
 
@@ -180,7 +247,7 @@ nav ul li a {
 }
 
 .card > .row > .row-coloum > .icon {
-    background: var(--primary-btn-bg-color);
+    background: var(--accent-color);
     color: white;
     border-radius: 50%;
     width: 50px;
@@ -211,6 +278,10 @@ nav ul li a {
     padding-top: 5px;
     text-wrap: balance;
     font-size: 20px;
+}
+
+.description p:last-child {
+    color: var(--accent-color);
 }
 
 input {
@@ -252,7 +323,7 @@ input:checked + label .description {
 .add,
 .add-amount {
     font-size: 24px;
-    background: var(--primary-btn-bg-color);
+    background: var(--accent-color);
     color: white;
     border-radius: 50%;
     width: 50px;
@@ -286,7 +357,7 @@ input:checked + label .description {
     justify-content: center;
     align-items: center;
     top: 11.7vh;
-    height: 80vh;
+    height: 81.5vh;
     margin: 64px 56px 0 16px ;
     width: clamp(350px, 25%, 500px);
     border: var(--primary-border);
@@ -295,11 +366,11 @@ input:checked + label .description {
     background-color: #2f2f2fc9;
 }
 
+
 .shopping-card {
     position: flex;
     top: 0;
     width: 95%;
-   
     margin-top: 16px;
     display: flex;
     flex-direction: column;
@@ -312,10 +383,14 @@ input:checked + label .description {
     border-radius: 12px;
     overflow: auto;
 }
+.description::-webkit-scrollbar-track {
+    background: transparent;
+}
 
 .shopping-card h1 {
     font-size: 40px;
     font-weight: 500;
+    color: var(--accent-color);
 }
 
 .shopping-card-content {
@@ -396,7 +471,7 @@ input:checked + label .description {
     border-radius: 20px;
     cursor: pointer;
     border: 0;
-    background-color: var(--primary-btn-bg-color)
+    background-color: var(--accent-color)
 }
 
 .shopping-card-info h2{
@@ -432,12 +507,22 @@ input:checked + label .description {
     width: clamp(320px, 98%, 1004px);
     font-size: 24px;
     height: 50px;
-    background-color: var(--primary-btn-bg-color);
+    background-color: var(--accent-color);
     border-radius: 32px;
     border: 0;
     display: flex;
     align-items: center; 
     justify-content: center;
+    cursor: pointer;
+}
+
+.pay-info-mobile-close button {
+    width: clamp(320px, 99%, 1004px);
+}
+
+.pay-info-mobile button:hover,
+.pay-info-mobile-close button:hover {
+    background: var(--primary-btn-hover-color);
 }
 
 .pay-info-mobile span {
@@ -475,7 +560,8 @@ input:checked + label .description {
 }
 
 
-.mobile-popup-bg {
+.mobile-popup-bg,
+.popup-bg {
     height: 0;
     display: block;
     background: #030a12;
@@ -490,6 +576,34 @@ input:checked + label .description {
     align-items: center;
 }
 
+.popup-bg {
+    height: 100vh;
+    background: #030a12c4;
+    z-index: 999;
+}
+
+.popup {
+    top: 20vh; 
+    position: fixed;
+    width: min(600px, 70%);
+    margin-inline: auto;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    font-size: 24px;
+    background-color: var(--primary-cards-bg);
+    color: var(--primary-color);
+    border-radius: 16px;
+    text-align: center;
+    padding-inline: 24px;
+    border: var(--primary-border);
+}
+
+.popup p:last-child {
+    font-size: 12px;
+}
 
 @media (max-width: 1660px) {
     .card {
@@ -620,7 +734,7 @@ input:checked + label .description {
         height: 50vh;
     }
     .filter-container {
-        top: 61.7vh;
+        top: 61.6vh;
     }
 }
 
@@ -663,7 +777,7 @@ input:checked + label .description {
         height: 40vh;
     }
     .filter-container {
-        top: 51.7vh;
+        top: 51.6vh;
     }
     .shopping-card-flex {
         width: 100%;
@@ -685,7 +799,7 @@ input:checked + label .description {
         background-position: 50% 100%;
     }
     .filter-container {
-        top: 41.7vh;
+        top: 41.6vh;
     }
 }
 
@@ -756,6 +870,48 @@ input:checked + label .description {
     .shopping-card-container {
         height: 60vh;
         
+    }
+}
+
+/* -----------media for nav ------------*/
+@media(max-width: 1140px) {
+    nav ul,
+    nav .about-us-container {
+        display: none;
+    }
+    .burger-menu {
+        display: block;
+    }
+    .droppdown {
+        display: block;
+    }
+}
+
+@media(max-width: 600px) {
+    .droppdown {
+        left: 10px;
+        width: unset;
+    }
+}
+
+@media(max-width: 473px) {
+    nav img {
+        height: 80px;
+    }
+    .burger-menu {
+        width: 70px;
+        height: 70px;
+
+    }
+}
+
+@media(max-width: 330px) {
+    nav img {
+        height: 77px;
+    }
+    .burger-menu {
+        width: 65px;
+        height: 65px;
     }
 }
 
