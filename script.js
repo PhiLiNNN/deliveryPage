@@ -191,14 +191,9 @@ function handleResize() {
             shoppingCard.style.display = 'flex';
         }
     } else {
-        if (shoppingCard) {
-            shoppingCard.style.display = 'none';
-        }
-        if (openPopupBg) {
-            openPopupBg.classList.add('d-none');
-        }
-        if (closeButton) {
-            closeButton.classList.add('d-none');
+        if (shoppingCard && openPopupBg && closeButton) {
+            toggleMobileShoppingCard(false)
+            updateOrderIconCounter();
         }
     }
 }
