@@ -6,7 +6,9 @@
     <link rel="icon" type="image/png" href="./img/fav.png">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/data.js"></script>
+    <script src="./js/template.js"></script>
 </head>
 <body onload="init()"> 
     <nav>
@@ -43,15 +45,28 @@
                     <main>
                         <div class="menu-bar-wrapper">
                             <div class="menu-bar">
-                                <a href=""></a>ssdfsdf<a href=""></a>
-                                <a href=""></a>sdfdsfdsf<a href=""></a>
-                                <a href=""></a>sdfdf<a href=""></a>
-        
+                                <a href="#pizza-section">
+                                    <img class="menu-icons" src="./img/pizza_trans.png" alt="">
+                                    <span>Pizza</span>
+                                </a>
+                                <div class="line"></div>
+                                <a href="#dessert-section">
+                                    <img class="menu-icons" src="./img/dessert_trans.png" alt="">
+                                    <span>Dessert</span>
+                                </a>
+                                <div class="line"></div>                            
+                                <a href="#drinks-section">
+                                    <img class="menu-icons" src="./img/drinks_trans.png" alt="">
+                                    <span>Getränke</span>
+                                </a>
                             </div>
                         </div>
-                        
-                        <div id="cards-container1-id" class="cards-container"></div>  
-                        <div id="cards-container2-id" class="cards-container"></div>          
+                        <div id="pizza-section"></div>
+                        <div id="cards-container1-id" class="cards-container"></div> 
+                        <div id="dessert-section"></div> 
+                        <div id="cards-container2-id" class="cards-container"></div>   
+                        <div id="drinks-section"></div>    
+                        <div id="cards-container3-id" class="cards-container margin-bottom"></div>     
                     </main>
                  
                     <div id="shopping-card-container-id" class="shopping-card-container"> 
@@ -59,15 +74,17 @@
                             <h1>Warenkorb</h1>
                             <div class="shopping-card-content">
                                 <div class="delivery-case-flex">
-                                    <div class="shopping-card-flex">
-                                        <h6>Icon</h6>
+                                    <div id="shopping-card-flex-left-id" class="shopping-card-flex-left" onclick="deliveryInfo('delivery')">
+                                        <img id="car_none" class="info-car-icon d-none"src="./img/car_trans.png" alt="">
+                                        <img id="car_highlight" class="info-car-icon "src="./img/car_highlight_trans.png" alt="">
                                         <div class="delivery-case-content">
                                             <p>Lieferung</p>
-                                            <p>24-45 min</p>
+                                            <p>25-45 min</p>
                                         </div>
                                     </div>
-                                    <div class="shopping-card-flex">
-                                        <h6>Icon</h6>
+                                    <div id="shopping-card-flex-right-id" class="shopping-card-flex-right" onclick="deliveryInfo('takeAway')">
+                                        <img id="takeAway_none" class="info-take-away-icon "src="./img/take_away_trans.png" alt="">
+                                        <img id="takeAway_highlight" class="info-take-away-icon d-none"src="./img/take_away_highlight_trans.png" alt="">
                                         <div class="delivery-case-content">
                                             <p>Abholung</p>
                                             <p>15 min</p>

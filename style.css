@@ -12,7 +12,9 @@
     --shopping-card-box-shadow: 3px 5px 11px -1px #04101B; 
     --accent-color: #864133;
 }
-
+html, body {
+    scroll-behavior: smooth;
+}
 * {
     padding: 0px;
     margin:0px;
@@ -79,7 +81,7 @@ nav img {
 
 nav ul {
     display: flex;
-    gap: 24px;
+    gap: 48px;
 }
 
 nav ul li a {
@@ -202,18 +204,33 @@ nav ul li a {
 
 .menu-bar {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     width: 100%;
-    height: 80px;
+    height: 60px;
     background-color: var(--accent-color);
     border: var(--primary-border);
     border-radius: 20px;
-    padding: 8px 16px;
+    padding: 8px 0;
 }
+
+.line {
+    width: 2px;
+    height: 100%;
+    border-radius: 20px;
+    background-color: white;
+}
+
 .menu-bar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
     cursor: pointer;
     color: var(--primary-color);
+    text-align: center;
+    font-size: 20px;
+    
 }
 
 .grid main {
@@ -237,13 +254,21 @@ nav ul li a {
 
 }
 
+.menu-icons {
+    width: 50px;
+}
+
 .cards-container {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    margin-block: 64px;
+    margin-top: 64px;
     gap: 16px;
     
+}
+
+.margin-bottom {
+    margin-bottom: 64px;
 }
 
 .card {
@@ -260,6 +285,11 @@ nav ul li a {
     align-items: flex-end;
     transition: .6s cubic-bezier(.28,-0.03,0,.99);
     box-shadow: 0px 10px 30px -5px rgba(0,0,0,0.8);
+}
+
+.highlight {
+    color: var(--accent-color);
+    font-weight: bold;
 }
 
 .card > .row  {
@@ -303,7 +333,7 @@ nav ul li a {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    height: 650px;
+    height: auto;
     width: 520px;
     opacity: 0;
     transform: translateY(30px);
@@ -398,7 +428,7 @@ input:checked + label .description {
     top: 11.7vh;
     height: 60.0vh;
     margin: 64px 56px 0 16px ;
-    width: clamp(350px, 25%, 500px);
+    width: 500px;
     border: var(--primary-border);
     border-radius: 24px;
     overflow: hidden;
@@ -410,6 +440,7 @@ input:checked + label .description {
     position: flex;
     top: 0;
     width: 95%;
+    height: 95%;
     margin-top: 16px;
     display: flex;
     flex-direction: column;
@@ -448,15 +479,24 @@ input:checked + label .description {
     align-items: center;
     gap: 8px;
 }
+.info-take-away-icon {
+    width: 25px;
+}
+.info-car-icon {
+    width: 40px;
+}
 
 .delivery-case-content {
     width: 100%;
     display: flex;
     flex-direction: column;
     text-align: center;
+    cursor: pointer;
 }
 
-.shopping-card-flex {
+
+.shopping-card-flex-left,
+.shopping-card-flex-right {
     width: 100%;
     display: flex;
     justify-content: center;
@@ -464,6 +504,18 @@ input:checked + label .description {
     align-items: center;
     padding: 8px 16px;
     border-radius: 50px;
+    border: var(--shopping-card-border);
+    box-shadow: var(--shopping-card-box-shadow);
+}
+.shopping-card-flex-left {
+    border: 2px solid var(--accent-color);
+    box-shadow: 3px 5px 11px -1px var(--accent-color); 
+}
+.border-highlight {
+    border: 2px solid var(--accent-color);
+    box-shadow: 3px 5px 11px -1px var(--accent-color); 
+}
+.border-default {
     border: var(--shopping-card-border);
     box-shadow: var(--shopping-card-box-shadow);
 }
@@ -482,6 +534,10 @@ input:checked + label .description {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 16px;
+}
+
+.order-name {
+    width: 100%;
 }
 
 .order-name p {
@@ -643,15 +699,16 @@ input:checked + label .description {
     font-size: 12px;
 }
 
-@media (max-width: 1660px) {
+
+@media (max-width: 1700px) {
     .card {
         width: clamp(320px, 100%, 1000px);
         height: 80px;
     }
 
     input:checked + label {
-        height: 650px;
         width: clamp(320px, 100%, 1000px);
+        height: 680px;
     }
     .card > .row {
         flex-direction: column;
@@ -699,24 +756,20 @@ input:checked + label .description {
         object-position: 50% 52%;
     }
     .description-flexrow-center {
-        margin-right: 16px;
+        margin:16px 16px 0 0;
     }
     .description-flexrow-center p {
         text-wrap: balance;
     }
     .shopping-card-container {
-        margin-left: 48px;
-        margin-right: 48px;
+        margin-inline: 24px;  
     }
 }
 
+
+
 @media (max-width: 1140px) {
-    .description-flexrow {
-        margin-top: 16px;
-    }
-    input:checked + label {
-        height: 710px;
-    }
+
     .aot {
         background-position: 50% 15%;
     }
@@ -727,7 +780,11 @@ input:checked + label .description {
         letter-spacing: 6px;
     }
 }
-
+@media (max-width: 1041px) {
+    .row-coloum h4 {
+        letter-spacing: 5px;
+    }   
+}
 
 @media (max-width: 1004px) {
     .shopping-card-container {
@@ -740,7 +797,13 @@ input:checked + label .description {
         z-index: 400;
         transition: height 0.5s ease;
     }
-    
+    .order-container{
+        padding: 48px;
+    }
+    .order-name p {
+        text-align: unset;
+    }
+
     .mobile-popup-bg {
         height: 100%;
     }
@@ -767,6 +830,9 @@ input:checked + label .description {
     .filter-container {
         top: 85.3vh;
     }
+    .menu-bar {
+        margin-right: 64px;
+    }
 }
 
 @media (max-width: 860px) {
@@ -786,6 +852,13 @@ input:checked + label .description {
 }
 
 @media (max-width: 714px) {
+
+    .menu-bar {
+        margin-inline: 16px;
+    }
+    .grid main {
+        margin-left: 0;
+    }
     .card {
         margin-inline: 16px;
     }
@@ -813,6 +886,13 @@ input:checked + label .description {
 }
 
 @media (max-width: 650px) {
+    .menu-bar a {
+       font-size: 16px;
+       gap: 4px;
+    }
+    .menu-icons {
+        width: 30%;
+    }
     .aot {
         background-position: 55% 100%;
         height: 40vh;
@@ -822,6 +902,9 @@ input:checked + label .description {
     }
     .shopping-card-flex {
         width: 100%;
+    }
+    .order-container{
+        padding: 24px;
     }
 }
 
@@ -855,9 +938,12 @@ input:checked + label .description {
 }
 
 @media (max-width: 382px) {
+    .menu-bar a {
+        font-size: 14px;
+    }
     .shopping-card-container {
         margin: 32px 12px;
-        width: clamp(300px, calc(100% - 24px), 900px)
+        width: clamp(280px, calc(100% - 24px), 340px);
     }
 
     .shopping-card {
@@ -876,11 +962,30 @@ input:checked + label .description {
     .delivery-case-flex {
         padding-inline: 8px;
     }
+    .order-name p,
+    .order-btn p {
+        font-size: 12px;
+    }
 }
 
 @media (max-width: 348px) {
+    .cards-container {
+        width: clamp(280px, 100%,  348px);
+    }
+    .menu-bar a {
+        font-size: 12px;
+    }
     #card5 h4 {
         padding-top: 24px; 
+    }
+    .shopping-card-container {
+        margin: 32px 24px;
+        width: clamp(280px, calc(90% - 24px), 340px);
+    }
+}
+@media (max-width: 348px) {
+    .description-flexrow-center {
+        margin-right: 8px;
     }
 }
 /* -----------media for heigth ------------*/
@@ -888,47 +993,43 @@ input:checked + label .description {
     nav {
         height: 11.8vh; 
     }
-}
-@media (max-height: 900px) {
     .shopping-card-container {
-        height: 70vh; 
+        height: 65vh; 
     }
     .shopping-card {
-        height: 85%;
-
+        height: 90%;
+    }
+    input:checked + label {
+        height: 500px;
     }
 }
+
 @media (max-height: 750px) {
-    .popup  {
+    .popup {
         height: 60vh;
     }
+    input:checked + label {
+        height: 400px;
+    }
 }
-
 
 @media (max-height: 664px) {
     .burger-menu {
         width: 70px;
         height: 70px;
     }
-    
     nav img  {
         height: 70px;
     }
 }
 
 @media (max-height: 664px) {
-    .shopping-card-container {
-        height: 65vh;
-    }
     nav {
         height: 11.8vh;
     }
 }
 
 @media (max-height: 500px) {
-    .shopping-card-container {
-        height: 60vh;
-    }
     .droppdown li a {
         padding: 16px;  
     }
@@ -938,15 +1039,9 @@ input:checked + label .description {
     nav {
         height: 11.8vh;
     }
-    .shopping-card {
-        height: 75%;
-    }
 }
 
 @media (max-height: 400px) {
-    .shopping-card-container {
-        height: 55vh;
-    }
     .burger-menu {
         width: 60px;
         height: 60px;
@@ -955,31 +1050,22 @@ input:checked + label .description {
         height: 60px;
     }
     .shopping-card {
-        height: 70%;
-    }
-}
-
-@media (max-height: 357px) {
-    .shopping-card-container {
-        height: 50vh;
-    }
-    .droppdown li a {
-        padding: 12px;  
-    }
-    .droppdown.open {
-        height: 270px;
-    }
-    .shopping-card {
         height: 100%;
         border: 0;
         box-shadow: 0 0 0 0 ;
     }
 }
 
-@media (max-height: 311px) {
-    .shopping-card-container {
-        height: 45vh;  
+@media (max-height: 357px) {
+    .droppdown li a {
+        padding: 12px;  
     }
+    .droppdown.open {
+        height: 270px;
+    }
+}
+
+@media (max-height: 311px) {
     .droppdown li a {
         font-size: 12px; 
     }
@@ -1015,7 +1101,6 @@ input:checked + label .description {
     .burger-menu {
         width: 70px;
         height: 70px;
-
     }
 }
 
