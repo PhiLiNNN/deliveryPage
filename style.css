@@ -69,7 +69,7 @@ nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    z-index: 1;
+    z-index: 1000;
 }
 
 nav img {
@@ -109,15 +109,16 @@ nav ul li a {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 1000;
+    z-index: 999;
     height: 0;
     right: 16px;
-    top: 100px;
+    top: 10vh;
     width: 300px;
     background: #262626b5;
     backdrop-filter: blur(15px);
     border-radius: 20px;
     overflow: hidden;
+    z-index: 1000;
     transition: height 400ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -189,13 +190,51 @@ nav ul li a {
     justify-content: space-between;
 }
 
+.menu-bar-wrapper {
+    position: sticky;
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    top: 11.7vh;
+    margin: 64px 64px 0 64px;
+    z-index: 1000;
+}
+
+.menu-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 80px;
+    background-color: var(--accent-color);
+    border: var(--primary-border);
+    border-radius: 20px;
+    padding: 8px 16px;
+}
+.menu-bar a {
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
 .grid main {
     display: flex;
+    position: sticky;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 70%;
-    margin-left: 8px;
+    margin-left: 64px;
+}
+
+.order-bar {
+    display: flex;
+    position: sticky;
+    padding-inline: 30px;
+    width: 70%;
+    height: 80px;
+    border: var(--primary-border);
+    margin: 64px 0 0 24px;
+
 }
 
 .cards-container {
@@ -354,10 +393,10 @@ input:checked + label .description {
     position: sticky;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     top: 11.7vh;
-    height: 81.5vh;
+    height: 60.0vh;
     margin: 64px 56px 0 16px ;
     width: clamp(350px, 25%, 500px);
     border: var(--primary-border);
@@ -493,7 +532,7 @@ input:checked + label .description {
     width: 100%;
     z-index: 11;
     bottom: 0;
-    padding-bottom: 24px;
+    padding-bottom: 8px;
     align-items: center;  
 }
 
@@ -563,7 +602,6 @@ input:checked + label .description {
 .mobile-popup-bg,
 .popup-bg {
     height: 0;
-    display: block;
     background: #030a12;
     z-index: 10;
     position: fixed;
@@ -609,7 +647,6 @@ input:checked + label .description {
     .card {
         width: clamp(320px, 100%, 1000px);
         height: 80px;
-        margin-left: 64px;
     }
 
     input:checked + label {
@@ -696,7 +733,8 @@ input:checked + label .description {
     .shopping-card-container {
         display: none;
         position: fixed;
-        top: 0;
+        top: 12.0vh;
+        height: 700px;
         margin: 32px;
         width: clamp(310px, calc(100% - 64px), 900px);
         z-index: 400;
@@ -725,6 +763,9 @@ input:checked + label .description {
     }
     input:checked + label {
         height: 660px;
+    }
+    .filter-container {
+        top: 85.3vh;
     }
 }
 
@@ -837,42 +878,115 @@ input:checked + label .description {
     }
 }
 
-
-/* -----------media for heigth ------------*/
 @media (max-width: 348px) {
     #card5 h4 {
         padding-top: 24px; 
     }
 }
-
-@media (max-height: 580px) {
+/* -----------media for heigth ------------*/
+@media (max-height: 916px) {
+    nav {
+        height: 11.8vh; 
+    }
+}
+@media (max-height: 900px) {
     .shopping-card-container {
-        height: 75vh;
-        
+        height: 70vh; 
+    }
+    .shopping-card {
+        height: 85%;
+
+    }
+}
+@media (max-height: 750px) {
+    .popup  {
+        height: 60vh;
+    }
+}
+
+
+@media (max-height: 664px) {
+    .burger-menu {
+        width: 70px;
+        height: 70px;
+    }
+    
+    nav img  {
+        height: 70px;
+    }
+}
+
+@media (max-height: 664px) {
+    .shopping-card-container {
+        height: 65vh;
+    }
+    nav {
+        height: 11.8vh;
     }
 }
 
 @media (max-height: 500px) {
     .shopping-card-container {
-        height: 70vh;
-        
+        height: 60vh;
+    }
+    .droppdown li a {
+        padding: 16px;  
+    }
+    .droppdown.open {
+        height: 310px;
+    }
+    nav {
+        height: 11.8vh;
+    }
+    .shopping-card {
+        height: 75%;
     }
 }
 
 @media (max-height: 400px) {
     .shopping-card-container {
-        height: 65vh;
-        
+        height: 55vh;
+    }
+    .burger-menu {
+        width: 60px;
+        height: 60px;
+    }
+    nav img  {
+        height: 60px;
+    }
+    .shopping-card {
+        height: 70%;
     }
 }
 
-@media (max-height: 300px) {
+@media (max-height: 357px) {
     .shopping-card-container {
-        height: 60vh;
-        
+        height: 50vh;
+    }
+    .droppdown li a {
+        padding: 12px;  
+    }
+    .droppdown.open {
+        height: 270px;
+    }
+    .shopping-card {
+        height: 100%;
+        border: 0;
+        box-shadow: 0 0 0 0 ;
     }
 }
 
+@media (max-height: 311px) {
+    .shopping-card-container {
+        height: 45vh;  
+    }
+    .droppdown li a {
+        font-size: 12px; 
+    }
+    .droppdown.open {
+        height: 240px;
+    }
+}
 /* -----------media for nav ------------*/
 @media(max-width: 1140px) {
     nav ul,

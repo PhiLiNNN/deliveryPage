@@ -1,5 +1,5 @@
 let menus = ['Pizza Giardino Esotico', 'Pizza Foresta Mistica','Pizza Seduzione Tropicale','Pizza Fusione Ardente','Pizza Sogno Orientale','Pizza L\'armonia dell\'Himalaya'];
-let orderAmount = [];
+let orderAmount = [0,0,0,0,0,0];
 let data = {
     'shortName': ['giardino', 'foresta','tropicale','ardente','sogno','himalaya'],
     'topping': ['Rucola, frische Erdbeeren, Ziegenkäse, Pinienkerne',
@@ -30,11 +30,58 @@ window.addEventListener('resize', handleResize);
 handleResize();
 
 function init() {
-    generateOrderAmountList(),
+    render();
     createPizzaCards('cards-container1-id');
     createPizzaCardsDummy('cards-container2-id');
-    createDishesInfo(); 
+    // createDishesInfo(); 
 }
+
+function render() {
+    let addToBasket = document.getElementById('order-container-id');
+    load();
+
+    if (containsOnlyZeros(orderAmount)) {
+        createDishesInfo();
+    }
+    else {
+        console.log('dsfsdfsdfdsf');
+        createPayInfo();
+        toggleVisibility('pay-info-container-id', true);
+        
+        orderAmount.forEach((amount, idx) => {
+            if (amount !==0) {  
+                addToBasket.innerHTML += templateGenerateShoppingCard(menus[idx], idx, amount);
+            }
+        }) 
+        updateOrderIconCounter();
+    }
+}
+
+function containsOnlyZeros(list) {
+    for (let i = 0; i < list.length; i++) {
+        if (list[i] !== 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+function saveDataToLocalStorage(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
+
+
+function save() { saveDataToLocalStorage('amount', orderAmount); }
+
+
+function load() { orderAmount = loadDataFromLocalStorage('amount') ||  Array(data.shortName.length).fill(0); }
+
+
+function loadDataFromLocalStorage(key) {
+    let dataText = localStorage.getItem(key);
+    return JSON.parse(dataText);
+}
+
+
+
 
 function generateOrderAmountList() { for (let i = 0; i < data.shortName.length; i++) { orderAmount.push(0); } }
 
@@ -78,6 +125,8 @@ function createPayInfo() {
     let price = calPayment();
     let payInfoCon = document.getElementById('pay-info-container-id');
     payInfoCon.innerHTML = templatePayInfo(price);
+    console.log(payInfoCon.innerHTML);
+    
 }
 
 
@@ -86,23 +135,26 @@ function toggleVisibility(elementId, show = true) {
     show ? element.classList.remove('d-none') : element.classList.add('d-none');
 }
 
-// -----logic---------------
 
 function add(pizzaName, index, addToBasket) {
     let pizzaId = `pizza${index}`;
     let existingPizza = isPizzaInBasket(addToBasket, pizzaId);
-
-    if (!existingPizza) {
-        let amount = 1;
-        addToBasket.innerHTML += templateGenerateShoppingCard(pizzaName, index, amount);
-        orderAmount[index] = 1;
+    if (containsOnlyZeros(orderAmount)) {
+        createDishesInfo();
         toggleVisibility('add-dishes-info', false);
         toggleVisibility('pay-info-container-id', true);
+     
+    }
+    if (!existingPizza) {
+        orderAmount[index] = orderAmount[index] + 1;
+        addToBasket.innerHTML += templateGenerateShoppingCard(pizzaName, index, orderAmount[index]);
         createPayInfo();
+    
+        
+        
+        save();
     }
-    else {
-        changeQuantity(1, index)
-    }
+    else { changeQuantity(1, index); }
 }
 
 
@@ -119,7 +171,6 @@ function addPizza(name) {
     if (pizzaIndex == -1) {return 1;}
     add(menus[pizzaIndex], pizzaIndex, addToBasket);
     updateOrderIconCounter();
-    // showShoppingIcon();
 }
 
 function toggleCardBorderFeedback(activeCard) { 
@@ -142,31 +193,40 @@ function calPayment() {
 function changeQuantity(increment, idx) {
     let quantityElement = document.getElementById(`quantity${idx}`);
     let quantity = +quantityElement.innerText + increment;
-    if (quantity < 1) { removeOrder(idx); } 
+    if (quantity == 0) { 
+        orderAmount[idx] = 0;
+        removeOrder(idx);
+        createPayInfo();
+        save();
+    } 
     else { updateQuantity(idx, quantity); }
 }
 
 function removeOrder(idx) {
     let deleteOrder = document.getElementById(`pizza${idx}`);
     deleteOrder.parentNode.removeChild(deleteOrder);
-    orderAmount[idx] = 0;
-    countOrders(); 
-    createPayInfo(); 
-    if (orderAmount.every(amount => amount === 0)) { toggleVisibility('add-dishes-info', true); }
+    if (orderAmount.every(amount => amount === 0)) { 
+        createDishesInfo();
+        toggleVisibility('add-dishes-info', true);
+        toggleVisibility('pay-info-container-id', false);
+     }
 }
 
 function updateQuantity(idx, quantity) {
     orderAmount[idx] = quantity;
     document.getElementById(`quantity${idx}`).innerText = quantity;
     createPayInfo();
+    save();
 }
 
 
-function countOrders() {
-    let parentElement = document.getElementById('order-container-id');
-    let childs = parentElement.childElementCount;
-    if (childs == 1) { toggleVisibility('pay-info-container-id', false); }
-}
+// function countOrders() {
+//     let parentElement = document.getElementById('order-container-id');
+//     let childs = parentElement.childElementCount;
+//     if (childs == 0) { 
+//         return true;
+//     }
+// }
 
 
 
@@ -229,9 +289,10 @@ function updateOrderIconCounter() {
 function clearShoppingCard() {
     data.shortName.forEach((_, index) => {
         if (orderAmount[index] !== 0) {
-            removeOrder(index);
+            orderAmount[index] = 0;
         }
     });
+    save();
     openOrderFeedbackPopup();
 }
 
@@ -286,33 +347,7 @@ function templateDishesInfo() {
     `;
 }
 
-function templatePizzaCardMobile(idx, name, shortName, topping, sauce, description, price) {
-    return /*html*/`
-        <input type="radio" name="slide" id="c${idx}" checked>
-        <label id="card${idx}" for="c${idx}" class="card">
-            <div  class="row">
-                <div class="row-coloum">
-                    <div class="icon">${idx}</div>
-                    <h4>${name}</h4>
-                </div>
-                <div class="description">
-                    <img src="./img/${shortName}.png" alt="">
-                    <div class="description-flexrow">
-                        <div class="description-flexrow-center">
-                            <p>Belag: ${topping}</p>
-                            <p>Soße: ${sauce}</p>
-                            <p>${description}</p>
-                            <p class="price-color">${price} €</p>
-                        </div>
-                        <div>
-                            <button class="add" onclick="addPizza('${shortName}')">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </label>
-    `;
-}
+
 
 function templatePizzaCard(idx, name, shortName, topping, sauce, description, price) {
     return /*html*/`
