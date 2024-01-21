@@ -1,22 +1,28 @@
-let menus = ['Pizza Giardino Esotico', 'Pizza Foresta Mistica','Pizza Seduzione Tropicale','Pizza Fusione Ardente','Pizza Sogno Orientale','Pizza L\'armonia dell\'Himalaya'];
-let orderAmount = [0,0,0,0,0,0];
+let menus = ['Pizza Giardino Esotico', 'Pizza Foresta Mistica','Pizza Seduzione Tropicale','Pizza Fusione Ardente','Pizza Sogno Orientale','Pizza L\'armonia dell\'Himalaya',
+            'Mango Fuoco','Vaniglia Rosa'];
+let orderAmount = [0,0,0,0,0,0,0,0];
 let data = {
-    'shortName': ['giardino', 'foresta','tropicale','ardente','sogno','himalaya'],
+    'shortName': ['giardino', 'foresta','tropicale','ardente','sogno','himalaya',
+                  'mango_fuoco', 'vaniglia_rosa'],
     'topping': ['Rucola, frische Erdbeeren, Ziegenkäse, Pinienkerne',
                 'Waldpilze (wie Shiitake, Pfifferlinge), Trüffelöl, Mozzarella',
                 'Hähnchen, Ananas, Mango, Kokosraspeln',
                 'Chorizo, Jalapeños, Paprika, Manchego-Käse',
                 'Gegrilltes Lamm, Auberginen, Feta, Minze',
-                'Curry-Hühnchen, Kichererbsen, Spinat, Joghurtsauce'],
-    'sauce': ['Balsamico-Glasur', 'Schwarze Knoblauchcreme', 'Schwarze Knoblauchcreme', 'Chipotle-Tomatensauce','Tahini-Joghurt', 'Mango-Chutney'],
+                'Curry-Hühnchen, Kichererbsen, Spinat, Joghurtsauce',
+                 null, null],
+    'sauce': ['Balsamico-Glasur', 'Schwarze Knoblauchcreme', 'Schwarze Knoblauchcreme', 'Chipotle-Tomatensauce','Tahini-Joghurt', 'Mango-Chutney',
+               null, null],
     'description': ['Der Kontrast zwischen süßen Erdbeeren, würzigem Ziegenkäse und knusprigem Rucola verleiht dieser Pizza eine einzigartige Note',
                     'Diese Pizza bietet eine mysteriöse Mischung aus erdigen Aromen und dem Hauch von Trüffelöl.',
                     'Diese Pizza bietet eine mysteriöse Mischung aus erdigen Aromen und dem Hauch von Trüffelöl.',
                     'Für diejenigen, die es gerne etwas würziger mögen, bietet diese Pizza eine perfekte Mischung aus Schärfe und Aroma.',
                     'Diese Pizza bringt den Geschmack des Nahen Ostens mit zartem Lamm und erfrischenden Minznoten auf den Tisch.',
-                    'Eine harmonische Fusion von würzigem Curry-Hühnchen, cremigen Kichererbsen, frischem Spinat und einer verführerischen Joghurtsauce. Eine köstliche Reise in die Aromen des Himalaya, die Ihren Gaumen verzaubert.'],
-    'price': ['7,50','8,00', '10,50', '7,50', '5,50', '7,50'],
-    'priceFloat': [7.50, 8.00, 10.50, 7.50, 5.50, 7.50]
+                    'Eine harmonische Fusion von würzigem Curry-Hühnchen, cremigen Kichererbsen, frischem Spinat und einer verführerischen Joghurtsauce. Eine köstliche Reise in die Aromen des Himalaya, die Ihren Gaumen verzaubert.',
+                    'Ein leidenschaftliches Zusammenspiel von süßer Mango, einer Prise Peperoncino und unserer samtigen Gelato-Basis.',
+                    'Vanillearoma trifft auf zartes Rosen-Sirup, um ein himmlisches Geschmackserlebnis auf unserer Gelato-Basis zu schaffen.'],
+    'price': ['7,50','8,00', '10,50', '7,50', '5,50', '7,50', '55,00', '20,00'],
+    'priceFloat': [7.50, 8.00, 10.50, 7.50, 5.50, 7.50, 55.00, 20.00]
 }
 
 
@@ -32,7 +38,7 @@ handleResize();
 function init() {
     render();
     createPizzaCards('cards-container1-id');
-    createPizzaCardsDummy('cards-container2-id');
+    createDessertCards('cards-container2-id');
     // createDishesInfo(); 
 }
 
@@ -89,30 +95,28 @@ function generateOrderAmountList() { for (let i = 0; i < data.shortName.length; 
 function createPizzaCards(box1) {
     let pizzaCardBox1 = document.getElementById(box1);
     pizzaCardBox1.innerHTML = '';
-    menus.forEach((menu, idx) => {
+    for (let idx = 0; idx < 6; idx++) {
         pizzaCardBox1.innerHTML += templatePizzaCard(
-            idx, menu, 
+            idx, menus[idx], 
             data.shortName[idx], 
             data.topping[idx],
             data.sauce[idx],
             data.description[idx],
             data.price[idx]
         );
-    });
+    }
 }
-function createPizzaCardsDummy(box1) {
+function createDessertCards(box1) {
     let pizzaCardBox1 = document.getElementById(box1);
     pizzaCardBox1.innerHTML = '';
-    menus.forEach((menu, idx) => {
-        pizzaCardBox1.innerHTML += templatePizzaCardDummy(
-            idx, menu, 
+    for (let idx = 6; idx < menus.length; idx++) {
+        pizzaCardBox1.innerHTML += templateDessertCard(
+            idx, menus[idx], 
             data.shortName[idx], 
-            data.topping[idx],
-            data.sauce[idx],
             data.description[idx],
             data.price[idx]
         );
-    });
+    }
 }
 
 function createDishesInfo() {
@@ -218,16 +222,6 @@ function updateQuantity(idx, quantity) {
     createPayInfo();
     save();
 }
-
-
-// function countOrders() {
-//     let parentElement = document.getElementById('order-container-id');
-//     let childs = parentElement.childElementCount;
-//     if (childs == 0) { 
-//         return true;
-//     }
-// }
-
 
 
 function toggleCardBorderColor(activeCard, show = true) { 
@@ -378,21 +372,19 @@ function templatePizzaCard(idx, name, shortName, topping, sauce, description, pr
 }
 
 
-function templatePizzaCardDummy(idx, name, shortName, topping, sauce, description, price) {
+function templateDessertCard(idx, name, shortName, description, price) {
     return /*html*/`
-        <input type="radio" name="slide" id="c1${idx}" checked>
-        <label id="card1${idx}" for="c1${idx}" class="card">
+        <input type="radio" name="slide" id="c${idx}" checked>
+        <label id="card${idx}" for="c${idx}" class="card">
             <div  class="row">
                 <div class="row-coloum">
-                    <div class="icon">1${idx}</div>
+                    <div class="icon">${idx}</div>
                     <h4>${name}</h4>
                 </div>
                 <div class="description">
                     <img src="./img/${shortName}.png" alt="">
                     <div class="description-flexrow">
                         <div class="description-flexrow-center">
-                            <p>Belag: ${topping}</p>
-                            <p>Soße: ${sauce}</p>
                             <p>${description}</p>
                             <p class="price-color">${price} €</p>
                         </div>
