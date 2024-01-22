@@ -1,12 +1,27 @@
-
-function templatePayInfo(price) {
+function templateMinOrderValueInfo(minOrderValue) {
     return /*html*/`
-        <div id="pay-info" class="pay-btn-container">
-            <button onclick="clearShoppingCard()">Bezahlen (${price} €)</button>
+        <div id="min-order-value-id" class="order-value-container-bg">
+            <div class="order-value-container">
+                <p >Benötigter Betrag, um den Mindestbestellwert zu erreichen</p>
+            </div>
+            <div class="minOrderValue-value-container">
+                <p>${minOrderValue} €</p>
+            </div>
         </div>
+        <p id="min-order-value-info-id">Leider kannst du noch nicht bestellen. Wir liefert erst ab einem Mindestbestellwert von 30,00 € (exkl. Lieferkosten).</p>
     `;
 }
 
+function templatePayInfo(isButtonActive, price, deliveryCosts) {
+    return /*html*/`
+        <div id="pay-info" class="pay-btn-container">
+            <p>Zwischensumme ${price} €</p>
+            <p>Lieferkosten ${deliveryCosts} €</p>
+            <p>Gesamt ${price} €</p>
+            <button id="pay-button-id"onclick="clearShoppingCard()" ${isButtonActive ? 'disabled' : ''}>Bezahlen (${price} €)</button>
+        </div>
+    `;
+}
 
 function templateGenerateShoppingCard(name, idx, amount) {
     return /*html*/`
@@ -28,6 +43,7 @@ function templateGenerateShoppingCard(name, idx, amount) {
 function templateDishesInfo() {
     return /*html*/`
         <div id="add-dishes-info" class="shopping-card-info">
+            <img src="./img/shopping_bags_3_trans.png" alt="">
             <h2>Fülle deinen Warenkorb</h2>
             <p>Brich mit dem Gewöhnlichen! Wähle deine<br>Lieblingspizza aus, füge sie dem Warenkorb hinzu und bestelle dein Essen.</p>
         </div>

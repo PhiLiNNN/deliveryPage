@@ -1,7 +1,8 @@
 
 let orderAmount = [0,0,0,0,0,0,0,0,0,0,0,0];
-
-
+let deliveryCosts = 4.99;
+let minOrderValueCots = 30.00;
+let pickupBool = false;  
 
 window.addEventListener('resize', handleResize);
 handleResize();
@@ -21,6 +22,7 @@ function render() {
     if (containsOnlyZeros(orderAmount)) { createDishesInfo();  }
     else {
         createPayInfo();
+        createMinOrderValueInfo(pickupBool);
         toggleVisibility('pay-info-container-id', true);
         orderAmount.forEach((amount, idx) => {
             if (amount !==0) { addToBasket.innerHTML += templateGenerateShoppingCard(menus[idx], idx, amount); }
@@ -85,7 +87,6 @@ function createDessertCards(box1) {
 function createDrinksCards(box1) {
     let pizzaCardBox1 = document.getElementById(box1);
     pizzaCardBox1.innerHTML = '';
-    console.log('menus.length',menus.length);
     for (let idx = 10; idx < menus.length; idx++) {
         pizzaCardBox1.innerHTML += templateDrinksCard(
             idx, menus[idx], 
@@ -100,14 +101,47 @@ function createDishesInfo() {
     addDishesInfo.innerHTML = templateDishesInfo();
 }
 
+function checkMinOrderValue(pickupBool) {
+    let price = calPayment();
+    let minOrderValue = (minOrderValueCots - price).toFixed(2);
+    minOrderValue = parseFloat(minOrderValue);
+    console.log('minOrderValue',minOrderValue);
+    if (minOrderValue <= 0.00 || minOrderValue >= minOrderValueCots + deliveryCosts || pickupBool == true) {
+        toggleVisibility('min-order-value-id', show = false);
+        toggleVisibility('min-order-value-info-id', show = false); 
+    }
+    else {
+        toggleVisibility('min-order-value-id', show = true);
+        toggleVisibility('min-order-value-info-id', show = true);
+    }
+}
+
+function createMinOrderValueInfo(pickupBool) {
+    let price = calPayment();
+    let minOrderValue = (minOrderValueCots - price).toFixed(2);
+    let minOrderValueCon = document.getElementById('min-order-value-container-id');
+    minOrderValue = minOrderValue.replace('.', ',');
+    minOrderValueCon.innerHTML = templateMinOrderValueInfo(minOrderValue);
+    checkMinOrderValue(pickupBool);
+}
+
 
 function createPayInfo() {
     let price = calPayment();
     let payInfoCon = document.getElementById('pay-info-container-id');
-    payInfoCon.innerHTML = templatePayInfo(price);
-    console.log(payInfoCon.innerHTML);
-    
+    let priceFloat =  +price;
+    let buttonIsDisabled = false;
+    if (pickupBool == false) {
+        if (priceFloat < minOrderValueCots + deliveryCosts) {
+            buttonIsDisabled = true;
+        }
+    }
+    let deliveryCostsString = deliveryCosts.toFixed(2).replace('.', ',');
+    price = price.replace('.', ',');
+    payInfoCon.innerHTML = templatePayInfo(buttonIsDisabled, price, deliveryCostsString);
 }
+
+
 
 
 function toggleVisibility(elementId, show = true) {
@@ -129,6 +163,7 @@ function add(pizzaName, index, addToBasket) {
         orderAmount[index] = orderAmount[index] + 1;
         addToBasket.innerHTML += templateGenerateShoppingCard(pizzaName, index, orderAmount[index]);
         createPayInfo();
+        createMinOrderValueInfo(pickupBool);
     
         
         
@@ -166,7 +201,10 @@ function calPayment() {
     orderAmount.forEach((amount, idx) => {
         result += +data.priceFloat[idx] * amount;
     });
-    return result.toFixed(2).replace('.', ',');
+    result = result + deliveryCosts;
+    if (pickupBool) {result = result - deliveryCosts;}
+    
+    return result.toFixed(2);
 }
 
 
@@ -176,6 +214,8 @@ function changeQuantity(increment, idx) {
     if (quantity == 0) { 
         orderAmount[idx] = 0;
         removeOrder(idx);
+        console.log('amount ist 0');
+        createMinOrderValueInfo(pickupBool);
         createPayInfo();
         save();
     } 
@@ -196,6 +236,7 @@ function updateQuantity(idx, quantity) {
     orderAmount[idx] = quantity;
     document.getElementById(`quantity${idx}`).innerText = quantity;
     createPayInfo();
+    createMinOrderValueInfo(pickupBool);
     save();
 }
 
@@ -294,6 +335,9 @@ function deliveryInfo(decision) {
             delivery.classList.add('border-highlight');
             carNone.classList.add('d-none');
             carHighlight.classList.remove('d-none');
+            pickupBool = false;
+            createPayInfo();
+            createMinOrderValueInfo(pickupBool);
         }
         else {
             return;
@@ -306,16 +350,17 @@ function deliveryInfo(decision) {
             takeAwayNone.classList.add('d-none');
             takeAway.classList.add('border-highlight');
 
-
+            pickupBool = true;
             carNone.classList.remove('d-none');
             carHighlight.classList.add('d-none');
             delivery.classList.add('border-default');
+            createPayInfo();
+            createMinOrderValueInfo(pickupBool);
+            toggleVisibility('min-order-value-id', show = false);
+            toggleVisibility('min-order-value-info-id', show = false); 
         }
         else {
             return;
         }
     }
 }
-
-    // border: 2px solid var(--accent-color);
-    // box-shadow: 3px 5px 11px -1px var(--accent-color); 
