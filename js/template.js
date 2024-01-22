@@ -2,11 +2,18 @@
 function templatePayInfo(price) {
     return /*html*/`
         <div id="pay-info" class="pay-btn-container">
-            <button onclick="clearShoppingCard()">Bezahlen (${price} €)</button>
+            <div class="pay-btn-container-flex">
+                <p id="min-order-value-id"> Benötigter Betrag, um den Mindestbestellwert zu erreichen 22,60 €</p>
+                <p id="min-order-value-info-id"> Leider kannst du noch nicht bestellen. Armonia Restaurant liefert erst ab einem Mindestbestellwert von 30,00 € (exkl. Lieferkosten).</p>
+                <button onclick="clearShoppingCard()">Bezahlen (${price} €)</button>
+            </div>
         </div>
     `;
 }
 
+// Benötigter Betrag, um den Mindestbestellwert zu erreichen
+// 22,60 €
+// 
 
 function templateGenerateShoppingCard(name, idx, amount) {
     return /*html*/`
