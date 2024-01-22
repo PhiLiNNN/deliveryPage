@@ -1,8 +1,7 @@
 
 let orderAmount = [0,0,0,0,0,0,0,0,0,0,0,0];
 
-
-
+let pickupBool = false;  
 window.addEventListener('resize', handleResize);
 handleResize();
 
@@ -166,6 +165,9 @@ function calPayment() {
     orderAmount.forEach((amount, idx) => {
         result += +data.priceFloat[idx] * amount;
     });
+    result = result + 5.00;
+    if (pickupBool) {result = result - 5.00;}
+    
     return result.toFixed(2).replace('.', ',');
 }
 
@@ -294,6 +296,8 @@ function deliveryInfo(decision) {
             delivery.classList.add('border-highlight');
             carNone.classList.add('d-none');
             carHighlight.classList.remove('d-none');
+            pickupBool = false;
+            createPayInfo();
         }
         else {
             return;
@@ -306,16 +310,14 @@ function deliveryInfo(decision) {
             takeAwayNone.classList.add('d-none');
             takeAway.classList.add('border-highlight');
 
-
+            pickupBool = true;
             carNone.classList.remove('d-none');
             carHighlight.classList.add('d-none');
             delivery.classList.add('border-default');
+            createPayInfo();
         }
         else {
             return;
         }
     }
 }
-
-    // border: 2px solid var(--accent-color);
-    // box-shadow: 3px 5px 11px -1px var(--accent-color); 
