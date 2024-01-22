@@ -11,10 +11,6 @@ function templatePayInfo(price) {
     `;
 }
 
-// Benötigter Betrag, um den Mindestbestellwert zu erreichen
-// 22,60 €
-// 
-
 function templateGenerateShoppingCard(name, idx, amount) {
     return /*html*/`
         <div id="pizza${idx}" class="order-style">
