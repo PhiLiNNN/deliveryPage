@@ -12,9 +12,11 @@
     --shopping-card-box-shadow: 3px 5px 11px -1px #04101B; 
     --accent-color: #864133;
 }
+
 html, body {
     scroll-behavior: smooth;
 }
+
 * {
     padding: 0px;
     margin:0px;
@@ -31,7 +33,6 @@ body {
     background-size: cover;
 
 }
-
 
 @font-face {
     font-family: 'Roboto';
@@ -97,7 +98,6 @@ nav ul li a {
     color: var(--primary-color);
 }
 
-
 .burger-menu {
     display: none;
     width: 80px;
@@ -133,13 +133,11 @@ nav ul li a {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--primary-color);
-    
+    color: var(--primary-color);   
 }
 
 .droppdown li a:hover {
     color: var(--primary-btn-hover-color);
- 
 }
 
 .droppdown li:last-child {
@@ -229,8 +227,7 @@ nav ul li a {
     cursor: pointer;
     color: var(--primary-color);
     text-align: center;
-    font-size: 20px;
-    
+    font-size: 20px; 
 }
 
 .grid main {
@@ -251,7 +248,6 @@ nav ul li a {
     height: 80px;
     border: var(--primary-border);
     margin: 64px 0 0 24px;
-
 }
 
 .menu-icons {
@@ -417,6 +413,7 @@ input:checked + label .description {
     flex-direction: column;
     
 }
+
 .min-order-value-container p {
     font-size: 14px;
 }
@@ -446,9 +443,7 @@ input:checked + label .description {
     background-color: #2f2f2fc9;
 }
 
-
 .shopping-card {
-    position: flex;
     top: 0;
     width: 95%;
     height: 95%;
@@ -464,6 +459,7 @@ input:checked + label .description {
     border-radius: 12px;
     overflow: auto;
 }
+
 .description::-webkit-scrollbar-track {
     background: transparent;
 }
@@ -491,9 +487,11 @@ input:checked + label .description {
     gap: 8px;
     margin-bottom: 16px;
 }
+
 .info-take-away-icon {
     width: 25px;
 }
+
 .info-car-icon {
     width: 40px;
 }
@@ -505,7 +503,6 @@ input:checked + label .description {
     text-align: center;
     cursor: pointer;
 }
-
 
 .shopping-card-flex-left,
 .shopping-card-flex-right {
@@ -554,6 +551,7 @@ input:checked + label .description {
 .order-value-container p {
     text-wrap: balance;
 }
+
 .minOrderValue-value-container {
     display: flex;
     align-items: center;
@@ -597,6 +595,19 @@ input:checked + label .description {
     margin-top: 16px;
 }
 
+.subtotals-row {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.subtotals-prices {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    
+}
+
 .pay-btn-container button {
     font-size: 24px;
     color: var(--primary-color-shopping-card);
@@ -612,16 +623,19 @@ input:checked + label .description {
     background-color: rgb(76, 75, 75);
     cursor: default
 }
+
 .shopping-card-info{
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
+
 .shopping-card-info img {
     width: 80px;
     margin: 16px auto;
 }
+
 .shopping-card-info h2{
     font-weight: 300;
     text-align: center;
@@ -698,15 +712,11 @@ input:checked + label .description {
     margin-bottom: 5px;
 }
 
-
-
-
 .wrapper-btn {
     width: 100%;
     display: flex;
     justify-content: center;
 }
-
 
 .mobile-popup-bg,
 .popup-bg {
@@ -752,13 +762,11 @@ input:checked + label .description {
     font-size: 12px;
 }
 
-
 @media (max-width: 1700px) {
     .card {
         width: clamp(320px, 100%, 1000px);
         height: 80px;
     }
-
     input:checked + label {
         width: clamp(320px, 100%, 1000px);
         height: 680px;
@@ -837,10 +845,7 @@ input:checked + label .description {
     }
 }
 
-
-
 @media (max-width: 1140px) {
-
     .aot {
         background-position: 50% 15%;
     }
@@ -851,6 +856,7 @@ input:checked + label .description {
         letter-spacing: 6px;
     }
 }
+
 @media (max-width: 1041px) {
     .row-coloum h4 {
         letter-spacing: 5px;
@@ -874,18 +880,15 @@ input:checked + label .description {
     .order-name p {
         text-align: unset;
     }
-
     .mobile-popup-bg {
         height: 100%;
     }
-
     .shopping-card-flex {
         width: 30%;
     }
     .pay-info-mobile {
         display: flex;
     }
-
     .grid main {
         width: 100%;
     }
@@ -930,7 +933,6 @@ input:checked + label .description {
 }
 
 @media (max-width: 714px) {
-
     .menu-bar {
         margin-inline: 16px;
     }
@@ -1004,8 +1006,8 @@ input:checked + label .description {
         border: 0;
         box-shadow: 0 0 0 0;
     }
-
 }
+
 @media (max-width: 436px) {
     .delivery-case-content p {
         font-size: 14px;
@@ -1020,7 +1022,6 @@ input:checked + label .description {
         margin: 32px 12px;
         width: clamp(280px, calc(100% - 24px), 450px);
     }
-  
 }
 
 @media (max-width: 413px) {
@@ -1037,7 +1038,6 @@ input:checked + label .description {
     .menu-bar a {
         font-size: 14px;
     }
-
     .shopping-card {
         margin-block: 16px;
         padding: 0;
@@ -1048,7 +1048,6 @@ input:checked + label .description {
     }
  
     .shopping-card-flex {
-        font-size: 12px; 
         padding: 8px;
     }
     .delivery-case-flex {
@@ -1056,15 +1055,27 @@ input:checked + label .description {
         gap: 4px;
     }
     .order-name p,
-    .order-btn p {
+    .order-btn p,
+    .min-order-value-container p,
+    .subtotals-row p,
+    .subtotals-prices span,
+    .delivery-case-content p,
+    .shopping-card-flex {
         font-size: 12px;
     }
-    .delivery-case-content p {
-        font-size: 12px;
+    .pay-btn-container button {
+        font-size: 20px;
     }
     .shopping-card-flex-left, 
     .shopping-card-flex-right {
         gap: 8px;
+        padding: 8px 0px;
+    }
+}
+
+@media (max-width: 352px) {
+    .description-flexrow-center {
+        margin-right: 8px;
     }
 }
 
@@ -1079,11 +1090,7 @@ input:checked + label .description {
         padding-top: 24px; 
     }
 }
-@media (max-width: 352px) {
-    .description-flexrow-center {
-        margin-right: 8px;
-    }
-}
+
 /* -----------media for heigth ------------*/
 @media (max-height: 916px) {
     nav {
@@ -1169,6 +1176,7 @@ input:checked + label .description {
         height: 240px;
     }
 }
+
 /* -----------media for nav ------------*/
 @media(max-width: 1140px) {
     nav ul,
@@ -1191,8 +1199,7 @@ input:checked + label .description {
 }
 
 @media(max-width: 473px) {
-    nav img {
-        height: 80px;
+    nav img { height: 80px;
     }
     .burger-menu {
         width: 70px;
