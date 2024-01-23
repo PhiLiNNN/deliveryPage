@@ -120,7 +120,7 @@ function createMinOrderValueInfo(pickupBool) {
 
 function createPayInfo() {
     let price = calcPayment();
-    deliveryCosts = pickupBool ? 0.00 : 4.99;
+    deliveryCosts = pickupBool ? 0.00 : 2.99;
     const total = (parseFloat(price) + parseFloat(deliveryCosts)).toFixed(2).replace('.', ',');
     price = parseFloat(price);
     const buttonIsDisabled = !pickupBool && price < minOrderValueCots;
@@ -216,7 +216,7 @@ function handleResize() {
         }
     } else {
         if (shoppingCard && openPopupBg && closeButton) {
-            updateOrderIconCounter();
+            updateOrderCounter();
             toggleMobileShoppingCard(false);
         }
     }

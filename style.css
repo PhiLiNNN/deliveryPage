@@ -95,6 +95,7 @@ nav ul li a {
     border-radius: 20px;
     padding: 10px 16px;
     margin-right: 24px;
+    font-size: 24px;
     color: var(--primary-color);
 }
 
@@ -125,7 +126,7 @@ nav ul li a {
 }
 
 .droppdown.open {
-    height: 400px;
+    height: 460px;
 }
 
 .droppdown li a {
@@ -461,7 +462,11 @@ input:checked + label .description {
 }
 
 .description::-webkit-scrollbar-track {
-    background: transparent;
+    background: whi;
+}
+
+.shopping-card::-webkit-scrollbar-track {
+    background-color: transparent;
 }
 
 .shopping-card h1 {
@@ -842,6 +847,7 @@ input:checked + label .description {
     }
     .shopping-card-container {
         margin-inline: 24px;  
+        background-color: #2f2f2f;
     }
 }
 
@@ -1116,7 +1122,7 @@ input:checked + label .description {
     }
 }
 
-@media (max-height: 664px) {
+@media (max-height: 614px) {
     .burger-menu {
         width: 70px;
         height: 70px;
@@ -1130,55 +1136,58 @@ input:checked + label .description {
     nav {
         height: 11.8vh;
     }
+    .droppdown li a {
+        font-size: 16px;  
+    }
+    .droppdown.open {
+        height: 400px;
+    }
 }
 
-@media (max-height: 500px) {
+@media (max-height: 515px) {
     .droppdown li a {
         padding: 16px;  
     }
     .droppdown.open {
-        height: 310px;
+        height: 320px;
     }
     nav {
         height: 11.8vh;
     }
 }
 
-@media (max-height: 400px) {
-    .burger-menu {
-        width: 60px;
-        height: 60px;
-    }
-    nav img  {
-        height: 60px;
-    }
+@media (max-height: 426px) {
+
     .shopping-card {
         height: 100%;
         border: 0;
         box-shadow: 0 0 0 0 ;
-    }
-}
-
-@media (max-height: 357px) {
+    } 
     .droppdown li a {
         padding: 12px;  
     }
     .droppdown.open {
-        height: 270px;
+        height: 280px;
+    }
+}
+
+@media (max-height: 390px) {
+    .droppdown li a {
+        padding: 8px;  
+    }
+    .droppdown.open {
+        height: 230px;
     }
 }
 
 @media (max-height: 311px) {
-    .droppdown li a {
-        font-size: 12px; 
-    }
     .droppdown.open {
         height: 240px;
     }
 }
 
 /* -----------media for nav ------------*/
-@media(max-width: 1140px) {
+@media(max-width: 1193px) {
     nav ul,
     nav .about-us-container {
         display: none;
@@ -1188,6 +1197,7 @@ input:checked + label .description {
     }
     .droppdown {
         display: block;
+        font-size: 24px;
     }
 }
 
