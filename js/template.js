@@ -2,7 +2,7 @@ function templateMinOrderValueInfo(minOrderValue) {
     return /*html*/`
         <div id="min-order-value-id" class="order-value-container-bg">
             <div class="order-value-container">
-                <p >Benötigter Betrag, um den Mindestbestellwert zu erreichen</p>
+                <p >Benötigter Betrag, um den Mindestbestellwert zu erreichen:</p>
             </div>
             <div class="minOrderValue-value-container">
                 <p>${minOrderValue} €</p>
@@ -12,16 +12,27 @@ function templateMinOrderValueInfo(minOrderValue) {
     `;
 }
 
-function templatePayInfo(isButtonActive, price, deliveryCosts) {
+
+function templatePayInfo(isButtonActive, subtotal, deliveryCosts, total) {
     return /*html*/`
         <div id="pay-info" class="pay-btn-container">
-            <p>Zwischensumme ${price} €</p>
-            <p>Lieferkosten ${deliveryCosts} €</p>
-            <p>Gesamt ${price} €</p>
-            <button id="pay-button-id"onclick="clearShoppingCard()" ${isButtonActive ? 'disabled' : ''}>Bezahlen (${price} €)</button>
+            <div class="subtotals-row">
+                <div class="subtotals-name">
+                    <p>Zwischensumme:</p>
+                    <p>Lieferkosten:</p>
+                    <p>Gesamt:</p>
+                </div>
+                <div class="subtotals-prices">
+                    <span>${subtotal} €</span>
+                    <span>${deliveryCosts} €</span>
+                    <span>${total} €</span>
+                </div>
+            </div>
+            <button id="pay-button-id"onclick="clearShoppingCard()" ${isButtonActive ? 'disabled' : ''}>Bezahlen (${total} €)</button>
         </div>
     `;
 }
+
 
 function templateGenerateShoppingCard(name, idx, amount) {
     return /*html*/`
@@ -49,7 +60,6 @@ function templateDishesInfo() {
         </div>
     `;
 }
-
 
 
 function templatePizzaCard(idx, name, shortName, topping, sauce, description, price) {
@@ -81,7 +91,7 @@ function templatePizzaCard(idx, name, shortName, topping, sauce, description, pr
 }
 
 
-function templateDessertCard(idx, name, shortName, description, price) {
+function templateCard(idx, name, shortName, description, price) {
     return /*html*/`
         <input type="radio" name="slide" id="c${idx}" checked>
         <label id="card${idx}" for="c${idx}" class="card">
@@ -107,31 +117,6 @@ function templateDessertCard(idx, name, shortName, description, price) {
     `;
 }
 
-function templateDrinksCard(idx, name, shortName, description, price) {
-    return /*html*/`
-        <input type="radio" name="slide" id="c${idx}" checked>
-        <label id="card${idx}" for="c${idx}" class="card">
-            <div  class="row">
-                <div class="row-coloum">
-                    <div class="icon">${idx}</div>
-                    <h4>${name}</h4>
-                </div>
-                <div class="description">
-                    <img src="./img/${shortName}.png" alt="">
-                    <div class="description-flexrow">
-                        <div class="description-flexrow-center">
-                            <p>${description}</p>
-                            <p class="price-color highlight">${price} €</p>
-                        </div>
-                        <div class="add-btn">
-                            <button class="add" onclick="addPizza('${shortName}')">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </label>
-    `;
-}
 
 function templatePopup(inputValue, textareaValue, noteID) {
     return /*html*/`
