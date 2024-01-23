@@ -105,12 +105,14 @@ function checkMinOrderValue(pickupBool) {
     let price = calPayment();
     let minOrderValue = (minOrderValueCots - price).toFixed(2);
     minOrderValue = parseFloat(minOrderValue);
-    console.log('minOrderValue',minOrderValue);
+    console.log('pickupBool',pickupBool);
     if (minOrderValue <= 0.00 || minOrderValue >= minOrderValueCots + deliveryCosts || pickupBool == true) {
+        console.log('1');
         toggleVisibility('min-order-value-id', show = false);
         toggleVisibility('min-order-value-info-id', show = false); 
     }
     else {
+        console.log('2');
         toggleVisibility('min-order-value-id', show = true);
         toggleVisibility('min-order-value-info-id', show = true);
     }
@@ -213,9 +215,8 @@ function changeQuantity(increment, idx) {
     let quantity = +quantityElement.innerText + increment;
     if (quantity == 0) { 
         orderAmount[idx] = 0;
-        removeOrder(idx);
-        console.log('amount ist 0');
         createMinOrderValueInfo(pickupBool);
+        removeOrder(idx);
         createPayInfo();
         save();
     } 
@@ -229,6 +230,8 @@ function removeOrder(idx) {
         createDishesInfo();
         toggleVisibility('add-dishes-info', true);
         toggleVisibility('pay-info-container-id', false);
+        toggleVisibility('min-order-value-id', show = false);
+        toggleVisibility('min-order-value-info-id', show = false); 
      }
 }
 
@@ -330,7 +333,7 @@ function deliveryInfo(decision) {
             takeAwayHighlight.classList.add('d-none');
             takeAwayNone.classList.remove('d-none');
             takeAway.classList.remove('border-highlight');
-
+            console.log('test')
             delivery.classList.remove('border-default');
             delivery.classList.add('border-highlight');
             carNone.classList.add('d-none');
@@ -338,6 +341,10 @@ function deliveryInfo(decision) {
             pickupBool = false;
             createPayInfo();
             createMinOrderValueInfo(pickupBool);
+              if (orderAmount.every(amount => amount === 0)) { 
+                toggleVisibility('min-order-value-id', show = false);
+                toggleVisibility('min-order-value-info-id', show = false); 
+            }
         }
         else {
             return;
@@ -349,15 +356,12 @@ function deliveryInfo(decision) {
             takeAwayHighlight.classList.remove('d-none');
             takeAwayNone.classList.add('d-none');
             takeAway.classList.add('border-highlight');
-
             pickupBool = true;
             carNone.classList.remove('d-none');
             carHighlight.classList.add('d-none');
             delivery.classList.add('border-default');
             createPayInfo();
             createMinOrderValueInfo(pickupBool);
-            toggleVisibility('min-order-value-id', show = false);
-            toggleVisibility('min-order-value-info-id', show = false); 
         }
         else {
             return;
