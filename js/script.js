@@ -254,18 +254,22 @@ function orderSum() { return orderAmount.reduce(function (accumulator, currentNu
 
 function handleResize() {
     let viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    let viewportHeight = window.innerWidth || document.documentElement.clientHeight;
     let openPopupBg = document.getElementById('mobile-popup-bg-id');
     let closeButton = document.getElementById('show-close-btn-id');
     let openButton = document.getElementById('show-open-btn-id');
     let shoppingCard = document.getElementById('shopping-card-container-id');
-    if (viewportWidth > 1004) {
+    if (viewportWidth > 1004 && viewportHeight > 800) {
         if ((closeButton && !closeButton.classList.contains('d-none')) || (openButton && !openButton.classList.contains('d-none'))) {
             shoppingCard.style.display = 'flex';
+            
+    
         }
     } else {
         if (shoppingCard && openPopupBg && closeButton) {
-            toggleMobileShoppingCard(false)
+            console.log('ists true alter')
             updateOrderIconCounter();
+            toggleMobileShoppingCard(false);
             
         }
     }
