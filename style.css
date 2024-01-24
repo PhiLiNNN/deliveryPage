@@ -767,7 +767,37 @@ input:checked + label .description {
     font-size: 12px;
 }
 
+.pizzas,
+.desserts {
+    position: absolute;
+}
+.pizzas {
+    top:0;
+}
+.desserts {
+    top:700px;
+}
+
+
 @media (max-width: 1700px) {
+    .pizzas,
+    .desserts,
+    .drinks {
+    position: absolute;
+    width: 100px;
+    height: 0;
+        z-index: 1000;
+    }
+
+    .pizzas {
+        top: 0px;
+    }
+    .desserts {
+        top:580px;
+    }
+    .drinks {
+        top:1000px;
+    }
     .card {
         width: clamp(320px, 100%, 1000px);
         height: 80px;
